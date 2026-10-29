@@ -1,0 +1,22 @@
+# Navigation links. A homepage section is linked by its `id` as '#id' (it works from every page and under a sub-path);
+# other pages by their path without a leading slash ('courses/'). `weight` sets the order.
+
+main:
+  - name: Bio
+    url: '#bio'
+    weight: 10
+  - name: Research
+    url: '#research'
+    weight: 20
+  - name: Publications
+    url: '#publications'
+    weight: 25
+  - name: News
+    url: '#news'
+    weight: 30
+  - name: Teaching
+    url: '#teaching'
+    weight: 40
+  - name: Misc
+    url: '#misc'
+    weight: 50

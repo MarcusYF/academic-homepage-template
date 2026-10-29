@@ -1,0 +1,242 @@
+/* ==========================================================================
+   Homepage, publication lists and taxonomy pages.
+   Colors and radii come from the tokens in site.css; nothing here is hard-coded.
+   ========================================================================== */
+
+/* Sections on the homepage manage their own spacing. */
+.hbb-section:has(> .fy-hero) { padding: 0 !important; }
+
+/* ---------- Hero ---------- */
+
+.fy-hero { padding-top: clamp(3rem, 7vw, 5.5rem); padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+.fy-hero-grid { display: grid; grid-template-columns: 196px minmax(0, 1fr); gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
+.fy-hero-portrait img {
+  width: 196px; height: 196px; border-radius: 50%; object-fit: cover;
+  box-shadow: 0 0 0 1px var(--c-line), 0 0 0 7px var(--c-surface), 0 0 0 8px var(--c-line);
+}
+.fy-hero-main { max-width: var(--text-col); padding-top: .35rem; }
+.fy-hero-name { margin: 0; color: var(--c-ink); font-size: clamp(2.2rem, 4.4vw, 2.85rem); font-weight: 680; line-height: 1.08; letter-spacing: -0.03em; }
+.fy-hero-role { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .5rem; margin: .65rem 0 0; color: var(--c-muted); font-size: 1.02rem; }
+.fy-hero-role p { display: inline; margin: 0; }
+.fy-hero-role a { color: var(--c-text); text-decoration: none; border-bottom: 1px solid var(--c-line-strong); }
+.fy-hero-role a:hover { color: var(--c-accent); border-color: var(--c-accent); }
+.fy-hero-sep { color: var(--c-faint); }
+
+.fy-hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.1rem; margin-top: 1.4rem; }
+.fy-hero-links { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.fy-hero-links a {
+  position: relative; display: grid; place-items: center; width: 36px; height: 36px;
+  border: 1px solid var(--c-line); border-radius: 50%; background: var(--c-surface); color: var(--c-muted);
+  transition: color .15s, border-color .15s, transform .2s var(--ease);
+}
+.fy-hero-links a:hover { color: var(--c-accent); border-color: var(--c-accent); transform: translateY(-1px); }
+.fy-hero-links svg { width: 17px; height: 17px; }
+.fy-hero-links a::after {
+  content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%);
+  padding: .2rem .5rem; border-radius: 6px; background: var(--c-ink); color: var(--c-bg);
+  font-size: .72rem; font-weight: 500; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .15s;
+}
+.fy-hero-links a:hover::after, .fy-hero-links a:focus-visible::after { opacity: 1; }
+.fy-status {
+  display: inline-flex; align-items: center; gap: .4rem; padding: .3rem .7rem .3rem .55rem;
+  border: 1px solid var(--c-line); border-radius: 999px; color: var(--c-muted); font-size: .8rem; cursor: help;
+}
+.fy-status-dot { font-size: .9rem; line-height: 1; }
+
+.fy-hero-bio { margin-top: 1.75rem; color: var(--c-text); font-size: 1rem; line-height: 1.72; }
+.fy-hero-bio p { margin: 0 0 1rem; }
+.fy-hero-bio p:last-child { margin-bottom: 0; }
+.fy-hero-bio a { color: var(--c-ink); text-decoration: underline; text-decoration-color: var(--c-line-strong); text-decoration-thickness: 1px; text-underline-offset: .22em; }
+.fy-hero-bio a:hover { color: var(--c-accent); text-decoration-color: var(--c-accent); }
+
+.fy-hero-interests { margin-top: 1.6rem; }
+.fy-hero-interests .s-kicker { margin-bottom: .6rem; }
+.fy-hero-interests ul { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0; padding: 0; list-style: none; }
+.fy-hero-interests li { padding: .3rem .75rem; border-radius: 999px; background: var(--c-accent-soft); color: var(--c-accent); font-size: .84rem; font-weight: 530; line-height: 1.4; }
+.fy-hero-note { display: flex; align-items: flex-start; gap: .55rem; margin: 1.5rem 0 0; color: var(--c-muted); font-size: .9rem; line-height: 1.6; }
+.fy-hero-note .s-icon { width: 18px; height: 18px; margin-top: .15rem; color: var(--c-faint); }
+.fy-hero-note a { color: var(--c-accent); text-decoration: none; font-weight: 550; }
+.fy-hero-note a:hover { text-decoration: underline; text-underline-offset: .2em; }
+
+/* ---------- Research ---------- */
+
+.fy-plate {
+  margin: 1.5rem 0 0; padding: .9rem 1rem .6rem; border-radius: var(--r-md); background-color: var(--c-subtle);
+  background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--c-ink) 8%, transparent) .75px, transparent 0);
+  background-size: 12px 12px;
+}
+.fy-plate svg { display: block; width: 100%; height: auto; overflow: visible; }
+.fy-plate .rp-compact { display: none; max-width: 420px; margin: 0 auto; }
+.fy-plate text { font-family: var(--font); }
+/* Tones: incentives warm, strategic interaction blue, data and feedback teal (the question numbers below match). */
+.fy-plate .rp-warm { --rp: var(--sk-warm); --rp-soft: var(--sk-warm-soft); }
+.fy-plate .rp-blue { --rp: var(--sk-blue); --rp-soft: var(--sk-blue-soft); }
+.fy-plate .rp-teal { --rp: var(--sk-teal); --rp-soft: var(--sk-teal-soft); }
+.fy-plate .rp-ink  { --rp: var(--c-ink);  --rp-soft: var(--c-subtle); }
+.fy-plate .rp-arc { fill: none; stroke: var(--rp); stroke-width: 1.8; stroke-linecap: round; }
+.fy-plate .rp-head { fill: var(--rp); }
+.fy-plate .rp-card { fill: var(--c-surface); stroke: var(--c-line-strong); stroke-width: 1; }
+.fy-plate .rp-ico-bg { fill: var(--rp-soft); }
+.fy-plate .rp-ico { color: var(--rp); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.fy-plate .rp-title { fill: var(--c-ink); font-size: 15px; font-weight: 650; letter-spacing: -.01em; }
+.fy-plate .rp-flow { fill: var(--rp, var(--c-ink)); font-size: 14px; font-weight: 650; }
+.fy-plate .rp-flow tspan { fill: var(--rp); }
+.fy-plate .rp-cap { fill: var(--c-muted); font-size: 12.5px; }
+.fy-plate .rp-mk circle { fill: var(--rp); stroke: var(--c-subtle); stroke-width: 4; paint-order: stroke; }
+.fy-plate .rp-mk text { fill: var(--c-bg); font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.fy-plate .rp-compact .rp-flow, .fy-plate .rp-compact .rp-title { font-size: 14.5px; }
+/* Plum layer: the optional "now" focus (dashed = emerging). */
+.fy-plate .rp-plum { --rp: var(--sk-plum); --rp-soft: var(--sk-plum-soft); }
+.fy-plate .rp-now rect { fill: var(--rp); }
+.fy-plate .rp-now-k { fill: var(--c-bg); font-size: 10px; font-weight: 700; letter-spacing: .1em; }
+.fy-plate .rp-now-t { fill: var(--rp); font-size: 12.5px; font-weight: 650; }
+.fy-plate .rp-agent rect { fill: var(--rp-soft); stroke: var(--rp); stroke-width: 1; stroke-dasharray: 3 2.5; }
+.fy-plate .rp-agent path { fill: var(--rp); }
+.fy-plate .rp-agent text { fill: var(--rp); font-size: 12.5px; font-weight: 650; }
+.fy-plate .rp-q { fill: var(--rp); font-size: 12px; font-weight: 500; }
+.fy-plate .rp-compact .rp-agent text, .fy-plate .rp-compact .rp-q { font-size: 11.5px; }
+
+.fy-questions { margin: 1.5rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--c-line); }
+.fy-question { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 1rem; padding: 1.15rem 0; border-bottom: 1px solid var(--c-line); }
+.fy-question-num { display: grid; place-items: center; width: 28px; height: 28px; margin: .1rem 0 0 4px; border-radius: 50%; background: var(--tone); color: var(--c-bg); font-size: .82rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.fy-question-kicker { margin: 0; color: var(--c-muted); font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.fy-question-title { margin: .2rem 0 0; color: var(--c-ink); font-size: 1.02rem; font-weight: 600; line-height: 1.45; letter-spacing: -0.005em; }
+.fy-paper-chips { display: flex; flex-wrap: wrap; gap: .4rem; margin: .7rem 0 0; padding: 0; list-style: none; }
+.fy-paper-chip {
+  display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .6rem; border: 1px solid var(--c-line); border-radius: 999px;
+  background: var(--c-surface); color: var(--c-text); font-size: .78rem; font-weight: 520; text-decoration: none;
+  transition: border-color .15s, color .15s;
+}
+.fy-paper-chip:hover { border-color: var(--c-accent); color: var(--c-accent); }
+.fy-paper-chip-year { color: var(--c-muted); font-size: .7rem; font-variant-numeric: tabular-nums; }
+.fy-methods { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .5rem; margin: 1.2rem 0 0; color: var(--c-muted); font-size: .86rem; }
+.fy-methods-label { margin-right: .25rem; color: var(--c-muted); font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.fy-methods-sep { color: var(--c-faint); }
+
+/* ---------- Publications (homepage, /publication/, taxonomy pages) ---------- */
+
+.fy-pub { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 1.1rem; padding: 1.35rem 0; border-bottom: 1px solid var(--c-line); }
+.fy-pub:last-child { border-bottom: 0; }
+.fy-pub-side { padding-top: .1rem; }
+.fy-pub-doc { display: grid; place-items: center; width: 44px; height: 44px; color: var(--c-faint); }
+.fy-pub-doc svg { width: 21px; height: 21px; }
+.fy-pub-title { margin: 0; font-size: 1.02rem; font-weight: 620; line-height: 1.45; letter-spacing: -0.005em; }
+.fy-pub-title a { color: var(--c-ink); text-decoration: none; }
+.fy-pub-title a:hover { color: var(--c-accent); }
+.fy-pub-authors { margin: .35rem 0 0; color: var(--c-muted); font-size: .86rem; line-height: 1.55; }
+.fy-pub-authors > span { font-weight: inherit !important; }
+.fy-pub-authors > span.is-owner { color: var(--c-ink); font-weight: 640 !important; }
+.fy-pub-authors a, .fy-pub-authors .coauthor-link { color: inherit; text-decoration: none !important; }
+.fy-pub-authors a:hover { color: var(--c-accent); text-decoration: underline !important; text-underline-offset: .2em; }
+.fy-pub-venue { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .6rem; margin: .6rem 0 0; }
+.fy-pub-note { color: var(--c-muted); font-size: .8rem; line-height: 1.45; }
+.fy-pub-note p { display: inline; margin: 0; }
+.fy-pub-note::before { content: ""; display: inline-block; width: 3px; height: 3px; margin: 0 .55rem .2em 0; border-radius: 50%; background: var(--c-faint); }
+.fy-pub-links { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; margin-top: .7rem; }
+.fy-pub-links .hb-attachment-link {
+  display: inline-flex; align-items: center; gap: .3rem; margin: 0; padding: 0;
+  color: var(--c-muted); font-size: .78rem; font-weight: 550; letter-spacing: .02em; text-transform: none; text-decoration: none;
+}
+.fy-pub-links .hb-attachment-link:hover { color: var(--c-accent); text-decoration: none; }
+.fy-pub-links .hb-attachment-link svg { height: .95em !important; opacity: .8; }
+/* "Visual intro" (animated explainer deck) leads the link row. */
+.fy-pub-links .hb-attachment-link[href*="/explainers/"] { color: var(--c-accent); font-weight: 650; }
+.fy-pub-links .hb-attachment-link[href*="/explainers/"] svg { opacity: 1; }
+
+.fy-pub-more { border-top: 1px solid var(--c-line); }
+.fy-pub-more > summary {
+  display: inline-flex; align-items: center; gap: .4rem; margin-top: .9rem; color: var(--c-accent); font-size: .9rem; font-weight: 560;
+  cursor: pointer; list-style: none;
+}
+.fy-pub-more > summary::-webkit-details-marker { display: none; }
+.fy-pub-more > summary::after { content: ""; width: 6px; height: 6px; margin-left: .15rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .2s; }
+.fy-pub-more[open] > summary::after { transform: rotate(-135deg) translateY(-1px); }
+.fy-pub-more .fy-more-open, .fy-pub-more[open] .fy-more-closed { display: none; }
+.fy-pub-more[open] .fy-more-open { display: inline; }
+.fy-pub-more[open] > summary { margin-bottom: .3rem; }
+.fy-pub-more > .fy-pub-list > .fy-pub:first-child { border-top: 0; }
+
+.fh-publication-heading { display: flex; align-items: flex-start; gap: 1rem; }
+.fh-publication-heading h1 { flex: 1; min-width: 0; margin-top: 0; }
+
+/* ---------- Teaching ---------- */
+
+.fy-term { margin: 1.75rem 0 .8rem; }
+.fy-term svg { width: 15px; height: 15px; color: var(--c-accent); }
+.fy-courses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; }
+.fy-course { display: flex !important; flex-direction: column; padding: 1.25rem 1.3rem; }
+.fy-course-top { display: flex; align-items: center; gap: .6rem; }
+.fy-course-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--c-accent-soft); color: var(--c-accent); transition: background .2s, color .2s; }
+.fy-course-icon svg { width: 19px; height: 19px; }
+.fy-course:hover .fy-course-icon { background: var(--c-accent); color: var(--c-accent-ink); }
+.fy-course-ext { margin-left: auto; }
+.fy-course-ext { width: 16px; height: 16px; color: var(--c-faint); transition: color .15s; }
+.fy-course:hover .fy-course-ext { color: var(--c-accent); }
+.fy-course-name { margin-top: .85rem; color: var(--c-ink); font-size: 1.02rem; font-weight: 620; line-height: 1.35; }
+.fy-course-desc { margin-top: .4rem; color: var(--c-muted); font-size: .875rem; line-height: 1.55; }
+.fy-course-chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .85rem; }
+.fy-chip { display: inline-flex; align-items: center; gap: .3rem; padding: .18rem .55rem .18rem .45rem; border: 1px solid var(--c-line); border-radius: 999px; color: var(--c-muted); font-size: .74rem; font-weight: 520; }
+.fy-chip svg { width: 13px; height: 13px; color: var(--c-accent); }
+.fy-course-cta { margin-top: auto; padding-top: 1rem; color: var(--c-accent); font-size: .82rem; font-weight: 600; }
+
+/* ---------- News ---------- */
+
+.fy-news { margin: 0; padding: 0; list-style: none; }
+.fy-news-item { position: relative; display: grid; grid-template-columns: 4.9rem 28px minmax(0, 1fr); column-gap: .9rem; align-items: start; padding: 0 0 1.15rem; }
+.fy-news-item::before { content: ""; position: absolute; left: calc(4.9rem + .9rem + 13.5px); top: 30px; bottom: 2px; width: 1px; background: var(--c-line); }
+.fy-news > .fy-news-item:last-child::before { display: none; }
+.fy-news-date { padding-top: .32rem; color: var(--c-muted); font-size: .78rem; font-weight: 600; letter-spacing: .02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.fy-news-icon { position: relative; z-index: 1; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--c-accent-soft); color: var(--c-accent); box-shadow: 0 0 0 4px var(--c-bg); transition: transform .2s var(--ease); }
+.fy-news-icon svg { width: 15px; height: 15px; }
+.fy-news-item--warm .fy-news-icon { background: var(--c-warm-soft); color: var(--c-warm); }
+.fy-news-item:hover .fy-news-icon { transform: scale(1.08); }
+.fy-news-text { padding-top: .2rem; color: var(--c-text); font-size: .94rem; line-height: 1.6; }
+.fy-news-text p { display: inline; margin: 0; }
+.fy-news-text a { color: var(--c-ink); text-decoration: underline; text-decoration-color: var(--c-line-strong); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.fy-news-text a:hover { color: var(--c-accent); text-decoration-color: var(--c-accent); }
+.fy-news-more summary { display: inline-flex; align-items: center; gap: .35rem; margin-top: .6rem; color: var(--c-accent); font-size: .88rem; font-weight: 550; cursor: pointer; list-style: none; }
+.fy-news-more summary::-webkit-details-marker { display: none; }
+.fy-news-more summary::after { content: ""; width: 6px; height: 6px; margin-left: .15rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .2s; }
+.fy-news-more[open] summary { margin-bottom: .3rem; }
+.fy-news-more[open] summary::after { transform: rotate(-135deg) translateY(-1px); }
+
+/* ---------- Beyond research teaser ---------- */
+
+.fy-interests { display: flex; flex-wrap: wrap; gap: .55rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.fy-interest {
+  display: inline-flex; align-items: center; gap: .5rem; padding: .5rem .95rem .5rem .7rem;
+  border: 1px solid var(--c-line); border-radius: 999px; background: var(--c-surface);
+  color: var(--c-ink); font-size: .9rem; font-weight: 520; text-decoration: none;
+  transition: border-color .15s, color .15s, transform .2s var(--ease);
+}
+.fy-interest:hover { border-color: var(--c-accent); color: var(--c-accent); transform: translateY(-1px); }
+.fy-interest-icon { display: inline-flex; width: 19px; height: 19px; color: var(--c-accent); }
+.fy-interest-icon svg { width: 100%; height: 100%; }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .fy-plate { padding: .8rem .6rem .5rem; }
+  .fy-plate .rp-wide { display: none; }
+  .fy-plate .rp-compact { display: block; }
+  .fy-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 1.6rem; }
+  .fy-hero-portrait img { width: 112px; height: 112px; box-shadow: 0 0 0 1px var(--c-line), 0 0 0 5px var(--c-surface), 0 0 0 6px var(--c-line); }
+  .fy-hero-main { padding-top: 0; }
+  .fy-hero-role { flex-direction: column; gap: .15rem; }
+  .fy-hero-sep { display: none; }
+  .fy-courses { grid-template-columns: minmax(0, 1fr); }
+  .fy-pub { grid-template-columns: minmax(0, 1fr); gap: .7rem; }
+  .fy-pub-side:has(.fy-pub-doc) { display: none; }
+  .fy-news-item { grid-template-columns: 28px minmax(0, 1fr); column-gap: .8rem; row-gap: 0; }
+  .fy-news-item::before { left: 13.5px; }
+  .fy-news-date { grid-column: 2; grid-row: 1; padding-top: .35rem; }
+  .fy-news-icon { grid-column: 1; grid-row: 1 / span 2; }
+  .fy-news-text { grid-column: 2; padding-top: .1rem; }
+  .fh-publication-heading { gap: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fy-interest, .fy-hero-links a { transition: none; }
+}
+
+/* Visually hidden text for screen readers. */
+.fy-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

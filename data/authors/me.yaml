@@ -1,0 +1,120 @@
+# Your profile. Everything here is placeholder content for a fictional person; replace it with your own.
+# Used by the homepage hero, publication author lists ("me" in front matter), the Experience page,
+# the footer contact line and the schema.org Person data.
+schema: hugoblox/author/v1
+slug: me
+is_owner: true
+name:
+  display: Jordan Lee
+  given: Jordan
+  family: Lee
+  alternate: ''       # e.g. a name in another script
+  pronunciation: ''
+  pronouns: ''
+postnominals:
+  - PhD
+status:
+  icon: "☕️"
+  # Shown as a small label beside the profile links when text is set. Empty hides it.
+  text: ""
+  legend: "☕️ regular · ✈️ traveling · 🏖 vacation · ⏳ deadline mode"
+role: Assistant Professor
+bio: |
+  I am an assistant professor in the Department of Data Science at Example University. I study how people and learning systems shape each other. *(Replace this bio with yours: two or three sentences, Markdown links allowed.)*
+  I received my PhD from Another University. Before that, I worked in industry for two years.
+
+# Research interests, shown as tags under the bio on the homepage.
+interests:
+  - Machine learning
+  - Human–AI interaction
+  - Recommender systems
+  - Game theory
+
+# One line under the interests on the homepage (Markdown allowed). Delete to hide.
+contact_note: 'Share these interests? [Email me](mailto:jordan.lee@example.org). Prospective students, please read [this page](prospective-students/) first.'
+
+affiliations:
+  - name: Example University
+    url: https://example.org/
+
+# Icons: brands/*, academicons/*, hero/* (https://docs.hugoblox.com/reference/icons/) or the custom set in
+# layouts/_partials/fy-icon.html. `label` is the tooltip; common icons get one automatically.
+links:
+  - icon: brands/github
+    url: https://github.com/your-username
+  - icon: academicons/google-scholar
+    url: https://scholar.google.com/
+  - icon: academicons/orcid
+    url: https://orcid.org/
+  - icon: at-symbol
+    url: mailto:jordan.lee@example.org
+    label: E-mail
+  - icon: hero/map-pin
+    url: https://www.openstreetmap.org/
+    label: Office address
+
+# Footer contact line on every page (layouts/_partials/hooks/footer-start/00-contact.html). Leave both empty to hide.
+contact:
+  office: Room 101, Example Hall, Example University
+  email: jordan.lee@example.org
+
+# Extra schema.org Person fields for search engines (layouts/_partials/hooks/head-end/person-jsonld.html). Optional.
+jsonld:
+  description: Assistant professor studying how people and learning systems shape each other.
+  works_for:
+    name: Example University
+    department: Department of Data Science
+    department_url: https://example.org/data-science/
+  alumni_of:
+    - Another University
+
+# Experience page and its timeline chart. kind: study | industry | internship | visiting | faculty.
+# Entries without `end` run to today.
+experience:
+  - role: Assistant Professor
+    org: Department of Data Science, Example University
+    short: Example University
+    kind: faculty
+    start: 2024-07-01
+    summary: |
+      Research, teaching and service. *(One or two sentences about each position.)*
+  - role: Visiting Researcher
+    org: Institute for Example Studies
+    short: Example Institute
+    kind: visiting
+    start: 2023-01-01
+    end: 2023-06-30
+    summary: |
+      A semester-long visit to work with collaborators on a shared project.
+  - role: Research Intern
+    org: Example Labs
+    short: Example Labs
+    kind: internship
+    start: 2021-05-15
+    end: 2021-08-15
+    summary: |
+      A summer internship on large-scale experimentation.
+  - role: PhD Student
+    org: Department of Computer Science, Another University
+    short: Another University
+    kind: study
+    start: 2018-09-01
+    end: 2024-05-31
+    summary: |
+      Doctoral research on learning systems and their users.
+  - role: Software Engineer
+    org: Example Tech
+    short: Example Tech
+    kind: industry
+    start: 2016-08-01
+    end: 2018-07-31
+    summary: |
+      Built and maintained recommendation pipelines before graduate school.
+  - role: BS in Mathematics
+    org: Sample College
+    short: Sample College
+    kind: study
+    start: 2012-09-01
+    end: 2016-06-30
+    summary: |
+      Undergraduate studies in mathematics.

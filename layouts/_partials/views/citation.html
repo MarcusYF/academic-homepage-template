@@ -1,0 +1,38 @@
+{{- /* One publication: title, authors, a venue pill with optional notes, and quiet links.
+       publication_short is split on <br>: the first part is the venue ("*ICML*, 2023, Oral" → "ICML 2023 · Oral"),
+       later parts are notes (orals, highlights, journal versions). */ -}}
+{{- $item := .item -}}
+{{- $year := time.Format "2006" ($item.Params.event_start | default $item.Date) -}}
+{{- $parts := slice -}}
+{{- range split ($item.Params.publication_short | default $item.Params.publication | default "") "<br" -}}
+  {{- $p := . | replaceRE `^\s*/?>` "" | strings.TrimSpace -}}
+  {{- with $p }}{{ $parts = $parts | append . }}{{ end -}}
+{{- end -}}
+{{- $venue := "" -}}
+{{- $notes := slice -}}
+{{- range $i, $p := $parts -}}
+  {{- if eq $i 0 -}}
+    {{- $venue = $p | replaceRE `\*` "" | strings.TrimSuffix "." | replaceRE `,\s*(\d{4})` " $1" | replaceRE `,\s*` " · " -}}
+  {{- else -}}
+    {{- $notes = $notes | append ($p | strings.TrimSuffix ".") -}}
+  {{- end -}}
+{{- end -}}
+{{- $hasYear := findRE `\d{4}` $venue 1 -}}
+<article class="pub-list-item view-citation fh-publication fy-pub">
+  <div class="fy-pub-side">
+    <span class="fy-pub-doc">{{ partial "fy-icon.html" "document" }}</span>
+  </div>
+  <div class="fy-pub-main">
+    <h3 class="fy-pub-title"><a href="{{ $item.RelPermalink }}">{{ $item.Title }}</a></h3>
+    <p class="fy-pub-authors">{{ partial "page_metadata_authors" $item }}</p>
+    <p class="fy-pub-venue">
+      {{- with $venue }}<span class="s-pill{{ if not (hasPrefix . "Working") }} s-pill--accent{{ end }}">{{ . }}{{ if not $hasYear }} · {{ $year }}{{ end }}</span>{{ end -}}
+      {{- range $notes }}<span class="fy-pub-note">{{ . | markdownify }}</span>{{ end -}}
+    </p>
+    {{- if partial "functions/has_attachments" $item }}
+    <div class="fy-pub-links fh-paper-actions">
+      {{ partial "page_links" (dict "page" $item "is_list" 1) }}
+    </div>
+    {{- end }}
+  </div>
+</article>

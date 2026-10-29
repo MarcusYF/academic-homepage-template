@@ -1,0 +1,4 @@
+{{- if or .IsHome (eq .Type "publications") (in (slice "taxonomy" "term") .Kind) -}}
+{{- $css := resources.Get "css/discovery.css" | minify | fingerprint "sha256" -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
+{{- end -}}

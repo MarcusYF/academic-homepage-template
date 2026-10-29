@@ -1,0 +1,49 @@
+{{- /* Research: lead sentence, an optional feedback-loop schematic (research-plate.html), the questions that organize
+       the papers (each paper chip links to its publication page), then the methods drawn on.
+       Content: lead, plate (map of labels, or true for the defaults; omit to hide), questions [{kicker, title,
+       tone (optional), papers [{id, label}]}], methods [string], links. */ -}}
+{{- $page := .wcPage -}}
+{{- $c := .wcBlock.content -}}
+<div class="hs s-container">
+  <header class="hs-head">
+    <span class="hs-icon">{{ partial "fy-icon.html" ($c.icon | default "spark") }}</span>
+    <h2 class="hs-title">{{ $c.title }}</h2>
+  </header>
+  <div class="hs-body">
+    {{- with $c.lead }}<p class="fy-lead">{{ . | $page.RenderString }}</p>{{ end }}
+
+    {{- if $c.plate }}
+    <figure class="fy-plate">{{ partial "research-plate.html" . }}</figure>
+    {{- end }}
+
+    {{- with $c.questions }}
+    <ol class="fy-questions">
+      {{- range $i, $q := . }}
+      {{- /* Number and tone match the markers in research-plate.html. */ -}}
+      {{- $tones := slice "warm" "blue" "teal" }}{{ $tone := "ink" }}{{ if lt $i (len $tones) }}{{ $tone = index $tones $i }}{{ end }}
+      <li class="fy-question">
+        <span class="fy-question-num sk-{{ .tone | default $tone }}" aria-hidden="true">{{ add $i 1 }}</span>
+        <div class="fy-question-body">
+          <p class="fy-question-kicker">{{ .kicker }}</p>
+          <h3 class="fy-question-title">{{ .title }}</h3>
+          <ul class="fy-paper-chips" aria-label="Related papers">
+            {{- range .papers }}
+            {{- $pub := site.GetPage (printf "/publications/%s" .id) -}}
+            {{- if not $pub }}{{ errorf "research-overview: missing publication %s" .id }}{{ end -}}
+            <li><a class="fy-paper-chip" href="{{ $pub.RelPermalink }}" title="{{ $pub.Title }}">
+              {{- .label }}<span class="fy-paper-chip-year">{{ $pub.Date.Format "2006" }}</span>
+            </a></li>
+            {{- end }}
+          </ul>
+        </div>
+      </li>
+      {{- end }}
+    </ol>
+    {{- end }}
+
+    {{- with $c.methods }}
+    <p class="fy-methods"><span class="fy-methods-label">Drawing on</span>{{ range $i, $m := . }}{{ if $i }}<span class="fy-methods-sep" aria-hidden="true">·</span>{{ end }}<span>{{ $m }}</span>{{ end }}</p>
+    {{- end }}
+    {{- partial "home-links.html" $c.links }}
+  </div>
+</div>

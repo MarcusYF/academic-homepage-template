@@ -1,0 +1,60 @@
+/* Side projects page (/side-projects/). Page shell (.mb-*) comes from misc.css; tokens from site.css only. */
+
+.sp-list { display: flex; flex-direction: column; gap: 1.25rem; }
+.sp-card {
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 2.25rem;
+  padding: clamp(1.4rem, 3vw, 2rem); scroll-margin-top: 88px;
+}
+.sp-card:target { border-color: var(--c-accent); box-shadow: 0 0 0 3px var(--c-accent-soft); }
+
+.sp-head { display: flex; align-items: center; gap: .85rem; }
+.sp-glyph {
+  display: grid; place-items: center; flex: none; width: 46px; height: 46px; border-radius: 12px;
+  background: var(--c-accent-soft); color: var(--c-accent);
+}
+.sp-glyph svg { width: 25px; height: 25px; }
+.sp-name { margin: 0; color: var(--c-ink); font-size: 1.35rem; font-weight: 660; letter-spacing: -0.02em; line-height: 1.2; }
+.sp-status { margin-top: .3rem; }
+.sp-tagline { margin: 1.15rem 0 0; color: var(--c-ink); font-size: 1.08rem; font-weight: 500; line-height: 1.5; letter-spacing: -0.01em; }
+.sp-summary { margin: .6rem 0 0; color: var(--c-text); font-size: .94rem; line-height: 1.65; }
+.sp-summary code, .sp-features code { font-family: var(--mono); font-size: .86em; padding: .05em .3em; border-radius: 4px; background: var(--c-subtle); }
+
+.sp-features { list-style: none; margin: 1.15rem 0 0; padding: 0; display: grid; gap: .55rem; }
+.sp-features li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: .6rem; color: var(--c-text); font-size: .9rem; line-height: 1.55; }
+.sp-check { width: 18px; height: 18px; margin-top: .12rem; color: var(--c-accent); }
+.sp-check svg { width: 100%; height: 100%; }
+
+.sp-side { display: flex; flex-direction: column; gap: 1.1rem; min-width: 0; }
+.sp-preview {
+  display: block; overflow: hidden; border: 1px solid var(--c-line-strong); border-radius: var(--r-md);
+  background: #0b111c; box-shadow: var(--shadow-sm);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.sp-preview:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.sp-preview-bar { display: flex; gap: 5px; padding: 7px 9px; background: #151f2e; }
+.sp-preview-bar i { width: 7px; height: 7px; border-radius: 50%; background: #3a4a61; }
+.sp-preview img { display: block; width: 100%; height: auto; }
+
+.sp-facts { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--c-line); }
+.sp-facts div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: .75rem; padding: .55rem 0; border-bottom: 1px solid var(--c-line); }
+.sp-facts dt { color: var(--c-muted); font-size: .8rem; font-weight: 550; }
+.sp-facts dd { margin: 0; color: var(--c-text); font-size: .86rem; line-height: 1.5; }
+.sp-facts dd p { margin: 0; }
+
+.sp-links { display: flex; flex-wrap: wrap; gap: .55rem; }
+.sp-btn {
+  display: inline-flex; align-items: center; gap: .45rem; padding: .5rem .9rem;
+  border: 1px solid var(--c-line-strong); border-radius: 999px; background: var(--c-surface);
+  color: var(--c-ink); font-size: .86rem; font-weight: 560; text-decoration: none;
+  transition: border-color .2s var(--ease), background .2s var(--ease), color .2s var(--ease);
+}
+.sp-btn .s-icon { width: 16px; height: 16px; }
+.sp-btn:hover { border-color: var(--c-accent); color: var(--c-accent); }
+.sp-btn--primary { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-accent-ink); }
+.sp-btn--primary:hover { background: var(--c-accent-hover); border-color: var(--c-accent-hover); color: var(--c-accent-ink); }
+.sp-note { margin: -.35rem 0 0; color: var(--c-muted); font-size: .8rem; line-height: 1.5; }
+.sp-note p { margin: 0; }
+
+@media (max-width: 860px) {
+  .sp-card { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+}

@@ -1,0 +1,5 @@
+{{- /* Publication detail pages only: loads after discovery.css so it can refine the shared .fh-publication-heading. */ -}}
+{{- if and (eq .Type "publications") (eq .Kind "page") -}}
+  {{- $css := resources.Get "css/pub-detail.css" | minify | fingerprint "sha256" }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
+{{- end -}}

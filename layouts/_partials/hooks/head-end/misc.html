@@ -1,0 +1,9 @@
+{{- /* Misc, Experience and Side projects share misc.css (page shell); Side projects adds its own sheet. */ -}}
+{{- if in (slice "/misc" "/experience" "/side-projects") .Path -}}
+{{- $css := resources.Get "css/misc.css" | minify | fingerprint "sha256" -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
+{{- end -}}
+{{- if eq .Path "/side-projects" -}}
+{{- $sp := resources.Get "css/side-projects.css" | minify | fingerprint "sha256" -}}
+<link rel="stylesheet" href="{{ $sp.RelPermalink }}" integrity="{{ $sp.Data.Integrity }}" />
+{{- end -}}

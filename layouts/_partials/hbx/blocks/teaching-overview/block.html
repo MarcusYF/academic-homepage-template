@@ -1,0 +1,35 @@
+{{- /* Teaching: lead, current term, one card per course (code, icon, name, text, url, chips [{icon, label}], cta), links.
+       External course URLs open in a new tab; internal ones (no leading slash, e.g. "courses/ds-101/") stay on the site. */ -}}
+{{- $page := .wcPage -}}
+{{- $c := .wcBlock.content -}}
+<div class="hs s-container">
+  <header class="hs-head">
+    <span class="hs-icon">{{ partial "fy-icon.html" ($c.icon | default "teach") }}</span>
+    <h2 class="hs-title">{{ $c.title }}</h2>
+  </header>
+  <div class="hs-body">
+    {{- with $c.lead }}<p class="fy-lead">{{ . | $page.RenderString }}</p>{{ end }}
+    {{- with $c.term }}<p class="s-kicker fy-term">{{ partial "fy-icon.html" "calendar-days" }}{{ . }}</p>{{ end }}
+    <div class="fy-courses">
+      {{- range $c.courses }}
+      {{- $ext := hasPrefix .url "http" }}
+      <a class="fy-course s-card" href="{{ if $ext }}{{ .url }}{{ else }}{{ .url | relURL }}{{ end }}"{{ if $ext }} target="_blank" rel="noopener"{{ end }}>
+        <span class="fy-course-top">
+          {{- with .icon }}<span class="fy-course-icon">{{ partial "fy-icon.html" . }}</span>{{ end }}
+          <span class="s-pill s-pill--accent">{{ .code }}</span>
+          {{- if $ext }}<span class="fy-course-ext s-icon">{{ partial "fy-icon.html" "external" }}</span>{{ end }}
+        </span>
+        <span class="fy-course-name">{{ .name }}</span>
+        <span class="fy-course-desc">{{ .text }}</span>
+        {{- with .chips }}
+        <span class="fy-course-chips">
+          {{- range . }}<span class="fy-chip">{{ with .icon }}{{ partial "fy-icon.html" . }}{{ end }}{{ .label }}</span>{{ end -}}
+        </span>
+        {{- end }}
+        <span class="fy-course-cta">{{ .cta | default "Course website" }}</span>
+      </a>
+      {{- end }}
+    </div>
+    {{- partial "home-links.html" $c.links }}
+  </div>
+</div>

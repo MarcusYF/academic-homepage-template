@@ -1,0 +1,10 @@
+{{- /* A quiet row of text links with arrows. Input: slice of {label, url}. External URLs get an outward arrow.
+       Internal URLs go through relURL: write them without a leading slash ("courses/") so the site also works under a sub-path. */ -}}
+{{- with . }}
+<p class="fy-links">
+  {{- range . }}
+    {{- $external := hasPrefix .url "http" -}}
+    <a class="s-link" href="{{ if $external }}{{ .url | safeURL }}{{ else }}{{ .url | relURL }}{{ end }}"{{ if $external }} target="_blank" rel="noopener"{{ end }}>{{ .label }}<span class="s-arrow s-icon">{{ partial "fy-icon.html" (cond $external "external" "arrow") }}</span></a>
+  {{- end }}
+</p>
+{{- end }}

@@ -1,0 +1,6 @@
+{{- /* Optional visitor map (https://mapmyvisitors.com). Set params.yaml → visitor_map.id to the `d=` value of your
+       widget code; colours are optional. Loaded once per page: visibly on /misc/ (profile-bento block), hidden elsewhere
+       by the footer hook so visits keep being counted site-wide. Never render this twice on one page. */ -}}
+{{- with site.Params.visitor_map -}}{{- if .id -}}
+<script async id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d={{ .id }}&cl={{ .land | default "ffffff" }}&w={{ .width | default 260 }}&co={{ .ocean | default "1d6b64" }}&ct={{ .text | default "ffffff" }}&cmo={{ .marker_old | default "e59b77" }}&cmn={{ .marker_new | default "f6c7ae" }}"></script>
+{{- end -}}{{- end -}}

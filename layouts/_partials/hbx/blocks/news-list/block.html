@@ -1,0 +1,22 @@
+{{- $page := .wcPage -}}
+{{- $c := .wcBlock.content -}}
+{{- $show := $c.show | default 5 -}}
+<div class="hs s-container">
+  <header class="hs-head">
+    <span class="hs-icon">{{ partial "fy-icon.html" ($c.icon | default "news") }}</span>
+    <h2 class="hs-title">{{ $c.title }}</h2>
+  </header>
+  <div class="hs-body">
+    <ol class="fy-news">
+      {{- range $i, $item := $c.items }}
+      {{- if eq $i $show }}</ol><details class="fy-news-more"><summary>Earlier news</summary><ol class="fy-news">{{ end }}
+      <li class="fy-news-item{{ with $item.tone }} fy-news-item--{{ . }}{{ end }}">
+        <time class="fy-news-date">{{ $item.date }}</time>
+        <span class="fy-news-icon">{{ partial "fy-icon.html" ($item.icon | default "news") }}</span>
+        <span class="fy-news-text">{{ $item.text | $page.RenderString }}</span>
+      </li>
+      {{- end }}
+    </ol>
+    {{- if gt (len $c.items) $show }}</details>{{ end }}
+  </div>
+</div>

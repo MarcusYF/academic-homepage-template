@@ -1,0 +1,3 @@
+# Overrides of HugoBlox link labels. Every "preprint" link on this site is derived from an arXiv id (hugoblox.ids.arxiv).
+- id: btn_preprint
+  translation: arXiv

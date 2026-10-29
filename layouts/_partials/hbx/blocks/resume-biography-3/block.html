@@ -1,0 +1,69 @@
+{{- /* Homepage hero: portrait, name, role, links and status beside a short biography.
+       Replaces the theme's Biography 3 block with a calmer layout; data still comes from data/authors/me.yaml. */ -}}
+{{- $page := .wcPage -}}
+{{- $content := .wcBlock.content | default dict -}}
+{{- $username := index $content "username" | default "me" -}}
+{{- $profile := partial "functions/get_author_profile" $username -}}
+{{- $data := index site.Data.authors $username | default dict -}}
+{{- $status := $data.status | default dict -}}
+{{- $bio := "" -}}
+{{- with $profile.bio }}{{ $bio = printf "%v" . | emojify | $page.RenderString }}{{ end -}}
+{{- $labels := dict "brands/github" "GitHub" "brands/linkedin" "LinkedIn" "academicons/google-scholar" "Google Scholar" "academicons/orcid" "ORCID" "at-symbol" "Email" "hero/map-pin" "Office" "brands/x" "X" -}}
+
+<div class="fy-hero s-container">
+  <div class="fy-hero-grid">
+    <div class="fy-hero-portrait">
+      {{- with $profile.avatar }}
+        {{- $img := .Fill "520x520 Center webp q88" }}
+        <img src="{{ $img.RelPermalink }}" width="260" height="260" alt="Portrait of {{ $profile.title }}" />
+      {{- end }}
+    </div>
+
+    <div class="fy-hero-main">
+      <h1 class="fy-hero-name">{{ $profile.title }}</h1>
+      <p class="fy-hero-role">
+        {{- with $profile.role }}<span>{{ . | markdownify }}</span>{{ end -}}
+        {{- range $profile.affiliations }}
+          {{- $name := .name | default .title -}}
+          <span class="fy-hero-sep" aria-hidden="true">·</span>
+          {{- with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ $name }}</a>{{ else }}<span>{{ $name }}</span>{{ end -}}
+        {{- end -}}
+      </p>
+
+      <div class="fy-hero-meta">
+        <ul class="fy-hero-links" aria-label="Contact and profiles">
+          {{- range $profile.links }}
+            {{- $url := .url | default .link -}}
+            {{- $icon := .icon | default "hero/link" -}}
+            {{- $label := .label | default (index $labels $icon) | default $icon -}}
+            {{- $external := hasPrefix $url "http" -}}
+            <li><a href="{{ $url | safeURL }}"{{ if $external }} target="_blank" rel="noopener"{{ end }} aria-label="{{ $label }}" data-tip="{{ $label }}">
+              {{ partial "functions/get_icon" (dict "name" $icon "attributes" "aria-hidden=\"true\"") }}
+            </a></li>
+          {{- end }}
+        </ul>
+        {{- with $status.text }}
+        <span class="fy-status" title="{{ $status.legend | default "" }}">
+          <span class="fy-status-dot" aria-hidden="true">{{ $status.icon | emojify }}</span>{{ . }}
+        </span>
+        {{- end }}
+      </div>
+
+      {{- with $bio }}
+      <div class="fy-hero-bio">{{ . }}</div>
+      {{- end }}
+
+      {{- with $data.interests }}
+      <div class="fy-hero-interests">
+        <p class="s-kicker">Research interests</p>
+        <ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
+      </div>
+      {{- end }}
+
+      {{- with $data.contact_note }}
+      <p class="fy-hero-note"><span class="s-icon">{{ partial "fy-icon.html" "envelope" }}</span><span>{{ . | $page.RenderString }}</span></p>
+      {{- end }}
+
+    </div>
+  </div>
+</div>

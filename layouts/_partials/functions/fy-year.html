@@ -1,0 +1,3 @@
+{{- /* Date (string or time) → fractional year, e.g. 2025-07-01 → 2025.496. */ -}}
+{{- $t := time.AsTime . -}}
+{{- return add (float $t.Year) (div (float (sub $t.YearDay 1)) 365.25) -}}

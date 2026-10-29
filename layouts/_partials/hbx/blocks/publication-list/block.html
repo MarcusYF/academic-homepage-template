@@ -1,0 +1,27 @@
+{{- /* Selected publications, newest first, rendered with the shared citation view. */ -}}
+{{- $c := .wcBlock.content -}}
+{{- $items := where site.RegularPages "Section" (index $c "section" | default "publications") -}}
+{{- $items = $items.ByDate.Reverse -}}
+<div class="hs s-container">
+  <header class="hs-head">
+    <span class="hs-icon">{{ partial "fy-icon.html" ($c.icon | default "document") }}</span>
+    <h2 class="hs-title">{{ $c.title }}</h2>
+    {{- with $c.subtitle }}<p class="hs-sub">{{ . }}</p>{{ end }}
+  </header>
+  <div class="hs-body">
+    {{- $show := int ($c.show | default 0) -}}
+    {{- $rest := slice -}}{{- if and $show (gt (len $items) $show) }}{{ $rest = after $show $items }}{{ $items = first $show $items }}{{ end }}
+    <div class="fy-pub-list">
+      {{- range $items }}{{ partial "views/citation.html" (dict "item" .) }}{{ end }}
+    </div>
+    {{- with $rest }}
+    <details class="fy-pub-more">
+      <summary><span class="fy-more-closed">Show {{ len . }} more publications</span><span class="fy-more-open">Show fewer</span></summary>
+      <div class="fy-pub-list">
+        {{- range . }}{{ partial "views/citation.html" (dict "item" .) }}{{ end }}
+      </div>
+    </details>
+    {{- end }}
+    {{- partial "home-links.html" $c.links }}
+  </div>
+</div>

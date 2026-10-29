@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visual intro: A Sample Paper on Learning Systems and the People Who Use Them</title>
+<meta name="description" content="A sample animated visual intro that shows what the deck engine can do. Every number here is illustrative.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Visual intro: A Sample Paper on Learning Systems and the People Who Use Them">
+<meta property="og:description" content="A sample animated visual intro that shows what the deck engine can do.">
+<!-- On your site, add og:url and og:image with absolute URLs (card.png from scripts/explainer_card.py). -->
+<meta name="twitter:card" content="summary_large_image">
+<!-- Relative engine path, so the deck also works when the site lives under a sub-path. -->
+<link rel="stylesheet" href="../_deck/deck.css">
+<script defer src="../_deck/deck.js"></script>
+</head>
+<body>
+<header class="dk-bar">
+  <a href="../../publications/sample-paper/">← Paper page</a>
+  <span class="dk-paper">A Sample Paper on Learning Systems and the People Who Use Them</span>
+  <a href="https://example.org/paper.pdf" target="_blank" rel="noopener">PDF ↗</a>
+</header>
+
+<main class="dk-deck" aria-label="Visual introduction, use arrow keys or the buttons below">
+
+  <!-- 1 Title -->
+  <section class="dk-slide">
+    <div class="dk-inner">
+      <h1 class="dk-h">A Sample Paper on Learning Systems<br>and the People Who Use Them</h1>
+      <hr class="dk-rule">
+      <p class="dk-sub">When a system learns from what people choose, what happens to the people?</p>
+      <p class="dk-meta">Jordan Lee, Sam Rivera, Morgan Ellis · EXCONF 2026 · a fictional sample</p>
+      <p class="dk-hint">Press → or click to step through</p>
+    </div>
+  </section>
+
+  <!-- 2 Setting: actors and flow, built step by step -->
+  <section class="dk-slide" data-label="Setting">
+    <div class="dk-inner">
+      <h2 class="dk-h">Three players around one recommender</h2>
+      <figure class="dk-fig" style="max-width:940px">
+        <svg viewBox="0 -48 960 418">
+          <g data-step="1" class="dk-rise">
+            <svg x="70" y="40" width="56" height="56" class="icon c-creator"><use href="../_deck/icons.svg#creator"/></svg>
+            <svg x="70" y="150" width="56" height="56" class="icon c-creator"><use href="../_deck/icons.svg#creator"/></svg>
+            <svg x="70" y="260" width="56" height="56" class="icon c-creator"><use href="../_deck/icons.svg#creator"/></svg>
+            <text x="98" y="352" text-anchor="middle" class="t-creator" font-size="24">creators</text>
+            <svg x="840" y="40" width="56" height="56" class="icon c-people"><use href="../_deck/icons.svg#person"/></svg>
+            <svg x="840" y="150" width="56" height="56" class="icon c-people"><use href="../_deck/icons.svg#person"/></svg>
+            <svg x="840" y="260" width="56" height="56" class="icon c-people"><use href="../_deck/icons.svg#person"/></svg>
+            <text x="868" y="352" text-anchor="middle" class="t-people" font-size="24">people</text>
+          </g>
+          <g data-step="2" class="dk-rise">
+            <path class="ln s-creator dk-draw" d="M140 68 C220 68 260 150 380 160"/>
+            <path class="ln s-creator dk-draw" d="M140 178 H380"/>
+            <path class="ln s-creator dk-draw" d="M140 288 C220 288 260 206 380 196"/>
+            <svg x="392" y="100" width="150" height="150" class="icon c-platform"><use href="../_deck/icons.svg#platform"/></svg>
+            <text x="467" y="290" text-anchor="middle" class="t-platform" font-size="24">recommender</text>
+            <text x="467" y="314" text-anchor="middle" class="t-muted" font-size="17">ranks what to show</text>
+          </g>
+          <g data-step="3" class="dk-rise">
+            <path class="ln s-platform dk-draw" d="M548 150 C620 120 650 72 820 70"/>
+            <path class="ln s-platform dk-draw" d="M548 178 H820"/>
+            <path class="ln s-platform dk-draw" d="M548 206 C620 236 650 284 820 286"/>
+          </g>
+          <g data-step="4">
+            <path class="ln s-good dash dk-draw" d="M868 22 C868 -18 98 -18 98 22"/>
+            <text x="480" y="-20" text-anchor="middle" class="t-good" font-size="19">choices flow back as training data</text>
+          </g>
+        </svg>
+      </figure>
+      <p class="dk-take" data-step="4">The system learns from the very choices it shapes.</p>
+      <p class="dk-note" data-step="4">Illustration. Colours keep one meaning in every deck: people blue, creators orange, the system purple, good outcomes green.</p>
+    </div>
+  </section>
+
+  <!-- 3 The tension: a two-column contrast -->
+  <section class="dk-slide" data-label="The question">
+    <div class="dk-inner">
+      <h2 class="dk-h">The worry: the loop narrows what people see</h2>
+      <div class="dk-cols">
+        <figure class="dk-fig" style="max-width:500px" data-step="1">
+          <svg viewBox="0 0 440 200">
+            <text x="220" y="26" text-anchor="middle" class="t-ink" font-size="22">Round 1</text>
+            <g class="s-creator f-creator-soft" stroke-width="1.8">
+              <rect x="40" y="70" width="80" height="44" rx="6"/><rect x="140" y="70" width="80" height="44" rx="6"/>
+            </g>
+            <g class="s-teal f-teal-soft" stroke-width="1.8"><rect x="240" y="70" width="80" height="44" rx="6"/><rect x="340" y="70" width="80" height="44" rx="6"/></g>
+            <g font-size="16" text-anchor="middle" class="t-ink"><text x="80" y="97">topic A</text><text x="180" y="97">topic A</text><text x="280" y="97">topic B</text><text x="380" y="97">topic C</text></g>
+            <text x="220" y="170" text-anchor="middle" class="t-good" font-size="18">a varied menu ✓</text>
+          </svg>
+        </figure>
+        <figure class="dk-fig" style="max-width:500px" data-step="2">
+          <svg viewBox="0 0 440 200">
+            <text x="220" y="26" text-anchor="middle" class="t-ink" font-size="22">Round 10</text>
+            <g class="s-creator f-creator-soft" stroke-width="1.8">
+              <rect x="40" y="70" width="80" height="44" rx="6"/><rect x="140" y="70" width="80" height="44" rx="6"/><rect x="240" y="70" width="80" height="44" rx="6"/><rect x="340" y="70" width="80" height="44" rx="6"/>
+            </g>
+            <g font-size="16" text-anchor="middle" class="t-ink"><text x="80" y="97">topic A</text><text x="180" y="97">topic A</text><text x="280" y="97">topic A</text><text x="380" y="97">topic A</text></g>
+            <text x="220" y="170" text-anchor="middle" class="t-bad" font-size="18">one topic crowds out the rest</text>
+          </svg>
+        </figure>
+      </div>
+      <p class="dk-take" data-step="3">How much does this narrowing cost the people the system serves?</p>
+      <p class="dk-note" data-step="3">Schematic, not data.</p>
+    </div>
+  </section>
+
+  <!-- 4 A result: growing bars with direct labels -->
+  <section class="dk-slide" data-label="Result">
+    <div class="dk-inner">
+      <h2 class="dk-h">Result: a little exploration keeps most of the value</h2>
+      <figure class="dk-fig" style="max-width:900px">
+        <svg viewBox="0 0 900 300">
+          <text x="10" y="24" class="t-muted" font-size="18">share of the best possible welfare that the loop keeps</text>
+          <path class="ln-thin s-line" d="M210 44 V270"/>
+          <path class="ln-thin s-good dash" d="M810 44 V270"/>
+          <text x="810" y="292" text-anchor="middle" class="t-good" font-size="17">best possible</text>
+          <g font-size="19">
+            <text x="196" y="74" text-anchor="end" class="t-ink">no exploration</text>
+            <rect class="f-bad dk-grow" x="210" y="56" width="330" height="28" rx="3"/>
+            <text x="552" y="77" class="t-bad">55%</text>
+            <text x="196" y="130" text-anchor="end" class="t-ink">a little</text>
+            <rect class="f-good dk-grow" x="210" y="112" width="534" height="28" rx="3" style="transition-delay:.08s"/>
+            <text x="756" y="133" class="t-good">89%</text>
+            <text x="196" y="186" text-anchor="end" class="t-ink">a lot</text>
+            <rect class="f-teal dk-grow" x="210" y="168" width="450" height="28" rx="3" style="transition-delay:.16s"/>
+            <text x="672" y="189" class="t-teal">75%</text>
+          </g>
+          <text x="10" y="292" class="t-faint" font-size="15">illustrative numbers for this sample deck</text>
+        </svg>
+      </figure>
+      <p class="dk-take" data-step="1" data-dim="2">Without exploration, the loop locks in early guesses.</p>
+      <p class="dk-take" data-step="2">Too much exploration wastes attention; a little goes a long way.</p>
+    </div>
+  </section>
+
+  <!-- 5 Try it: buttons redraw a chart -->
+  <section class="dk-slide" data-label="Try it">
+    <div class="dk-inner">
+      <h2 class="dk-h">Try it: how fast does the menu narrow?</h2>
+      <figure class="dk-fig" style="max-width:860px">
+        <svg viewBox="0 0 860 280" id="try-chart">
+          <text x="10" y="22" class="t-muted" font-size="17">topics still shown after each round</text>
+          <path class="ln-thin s-line" d="M60 240 H840 M60 240 V40"/>
+          <text x="840" y="266" text-anchor="end" class="t-muted" font-size="16">rounds →</text>
+          <polyline id="try-line" class="ln-thick s-platform" fill="none" points=""/>
+          <text id="try-label" x="840" y="60" text-anchor="end" class="t-platform" font-size="18"></text>
+        </svg>
+      </figure>
+      <div class="dk-ctl" data-interactive>
+        <span>exploration</span>
+        <span role="group" aria-label="Exploration" id="try-buttons"></span>
+      </div>
+      <p class="dk-note">Illustration with made-up curves: replace this slide with an interaction built on your paper's numbers.</p>
+    </div>
+  </section>
+
+  <!-- 6 Takeaways -->
+  <section class="dk-slide" data-label="Takeaways">
+    <div class="dk-inner">
+      <h2 class="dk-h">What this means</h2>
+      <ol class="dk-list">
+        <li data-step="1" data-dim="2" class="dk-rise"><span class="n">1</span><span class="t">Feedback loops can narrow choices</span><span class="d">A system that learns from what it shows can lock in early guesses.</span></li>
+        <li data-step="2" data-dim="3" class="dk-rise"><span class="n">2</span><span class="t">A little exploration helps</span><span class="d">Keeping a few varied items in view preserves most of the value.</span></li>
+        <li data-step="3" class="dk-rise"><span class="n">3</span><span class="t">Build your own deck</span><span class="d">Copy this file, keep the engine in static/explainers/_deck/, and replace the content.</span></li>
+      </ol>
+      <p class="dk-note" data-step="3"><a href="../../publications/sample-paper/">Paper page</a> · <a href="https://example.org/paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+    </div>
+  </section>
+</main>
+
+<nav class="dk-nav" aria-label="Slides">
+  <button type="button" data-dk-prev aria-label="Previous">←</button>
+  <span class="dk-dots" aria-hidden="true"></span>
+  <span data-dk-count aria-live="polite"></span>
+  <button type="button" data-dk-next aria-label="Next">→</button>
+</nav>
+
+<script>
+/* "Try it": buttons switch between three illustrative curves (made-up data for the sample deck). */
+(function () {
+  var curves = {
+    "none": { label: "none: 1 topic left", pts: [10, 7, 5, 3, 2, 1, 1, 1, 1, 1] },
+    "a little": { label: "a little: 6 topics left", pts: [10, 9, 8, 7, 7, 6, 6, 6, 6, 6] },
+    "a lot": { label: "a lot: 9 topics left", pts: [10, 10, 9, 9, 9, 9, 9, 9, 9, 9] }
+  };
+  var line = document.getElementById("try-line"), label = document.getElementById("try-label"), box = document.getElementById("try-buttons");
+  function show(key) {
+    var c = curves[key];
+    line.setAttribute("points", c.pts.map(function (v, i) { return (60 + i * 86) + "," + (240 - v * 18); }).join(" "));
+    label.textContent = c.label;
+    Array.prototype.forEach.call(box.children, function (b) { b.setAttribute("aria-pressed", b.dataset.key === key ? "true" : "false"); });
+  }
+  Object.keys(curves).forEach(function (key) {
+    var b = document.createElement("button"); b.type = "button"; b.className = "dk-btn"; b.dataset.key = key; b.textContent = key;
+    b.addEventListener("click", function () { show(key); }); box.appendChild(b);
+  });
+  show("none");
+})();
+</script>
+</body>
+</html>

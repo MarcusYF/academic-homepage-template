@@ -1,0 +1,268 @@
+/* ==========================================================================
+   Site design system: one sans family, neutral ink, a single deep-teal accent.
+   Every page-specific stylesheet (discovery, pub-detail, misc, side-projects)
+   should use these tokens instead of its own colors.
+   ========================================================================== */
+
+:root {
+  --c-bg: #fbfbf9;
+  --c-surface: #ffffff;
+  --c-subtle: #f3f4f1;
+  --c-ink: #141b1a;
+  --c-text: #37433f;
+  --c-muted: #6a7672;
+  --c-faint: #a2aba7;   /* decoration only (separators, markers, dashed lines); too light for text (2.3:1) */
+  --c-line: #e6e9e4;
+  --c-line-strong: #d3d9d3;
+  --c-accent: #1d6b64;
+  --c-accent-hover: #14524c;
+  --c-accent-soft: #e7f0ec;
+  --c-accent-ink: #ffffff;
+  --c-warm: #b85b33;
+  --c-warm-soft: #f7ece4;
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --shadow-sm: 0 1px 2px rgb(20 27 26 / 0.04);
+  --shadow-md: 0 12px 32px -18px rgb(20 27 26 / 0.28);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --container: 1080px;
+  --text-col: 680px;
+  /* System fonts on purpose: the theme declares Inter as "inter var", which this stack never requested. */
+  --font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Theme hooks */
+  --color-background: var(--c-bg);
+}
+
+html.dark {
+  --c-bg: #0f1413;
+  --c-surface: #151c1b;
+  --c-subtle: #1a2221;
+  --c-ink: #edf2f0;
+  --c-text: #c9d3d0;
+  --c-muted: #92a09b;
+  --c-faint: #5f6d69;
+  --c-line: #243130;
+  --c-line-strong: #33423f;
+  --c-accent: #7fc8ba;
+  --c-accent-hover: #a3dbcf;
+  --c-accent-soft: #1b3330;
+  --c-accent-ink: #0f1413;
+  --c-warm: #e59b77;
+  --c-warm-soft: #33261f;
+  --shadow-md: 0 12px 32px -18px rgb(0 0 0 / 0.7);
+  --color-background: var(--c-bg);
+}
+
+body {
+  font-family: var(--font);
+  color: var(--c-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--c-accent-soft); color: var(--c-ink); }
+
+/* Calm the theme's decorative page background and gradient mesh. */
+#page-bg { display: none; }
+
+/* ---------- Shared primitives (used by every redesigned page) ---------- */
+
+.s-container { max-width: var(--container); margin: 0 auto; padding: 0 1.5rem; }
+
+.s-kicker {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  margin: 0 0 0.75rem; color: var(--c-muted);
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.s-kicker svg { width: 15px; height: 15px; color: var(--c-accent); }
+
+.s-icon { display: inline-block; width: 20px; height: 20px; flex: none; }
+.s-icon svg { width: 100%; height: 100%; }
+
+.s-link {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  color: var(--c-accent); font-weight: 550; text-decoration: none;
+}
+.s-link:hover { color: var(--c-accent-hover); }
+.s-link .s-arrow { transition: transform 0.2s var(--ease); }
+.s-link:hover .s-arrow { transform: translateX(3px); }
+
+.s-pill {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  padding: 0.12rem 0.55rem; border-radius: 999px;
+  background: var(--c-subtle); color: var(--c-text);
+  font-size: 0.75rem; font-weight: 550; line-height: 1.5; white-space: nowrap;
+}
+.s-pill--accent { background: var(--c-accent-soft); color: var(--c-accent); }
+
+.s-card {
+  background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-md);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
+}
+a.s-card { color: inherit; text-decoration: none; display: block; }
+a.s-card:hover { border-color: var(--c-line-strong); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+:where(a, button, summary, input, select, textarea):focus-visible {
+  outline: 2px solid var(--c-accent); outline-offset: 3px; border-radius: 6px;
+}
+
+/* ---------- Two-column section shell: label left, content right (homepage, landing pages) ---------- */
+
+.hbb-section:has(> .hs) { padding: 0 !important; }
+.hbb-section { scroll-margin-top: 64px; }
+
+.hs {
+  display: grid; grid-template-columns: 12.5rem minmax(0, 1fr); gap: 2.5rem;
+  padding-top: clamp(2.75rem, 5vw, 4rem); padding-bottom: clamp(2.75rem, 5vw, 4rem);
+  background: linear-gradient(var(--c-line), var(--c-line)) no-repeat center top / calc(100% - 3rem) 1px;
+}
+.hs-head { position: sticky; top: 88px; align-self: start; }
+.hs-icon { display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: .9rem; border-radius: 10px; background: var(--c-accent-soft); color: var(--c-accent); }
+.hs-icon svg { width: 19px; height: 19px; }
+.hs-title { margin: 0; color: var(--c-ink); font-size: 1.3rem; font-weight: 650; line-height: 1.25; letter-spacing: -0.015em; }
+.hs-sub { margin: .55rem 0 0; color: var(--c-muted); font-size: .875rem; line-height: 1.55; }
+.hs-body { min-width: 0; max-width: 46rem; }
+
+.fy-lead { margin: 0; color: var(--c-ink); font-size: clamp(1.1rem, 1.9vw, 1.28rem); font-weight: 450; line-height: 1.55; letter-spacing: -0.01em; }
+.fy-lead a { color: inherit; text-decoration: underline; text-decoration-color: var(--c-line-strong); text-underline-offset: .2em; }
+.fy-links { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; margin: 1.75rem 0 0; font-size: .92rem; }
+
+/* Markdown sections on landing pages (e.g. Courses) */
+.fy-page-head { padding-top: clamp(3rem, 7vw, 5rem); padding-bottom: .5rem; }
+.fy-page-title { margin: 0; color: var(--c-ink); font-size: clamp(2.1rem, 4.4vw, 2.75rem); font-weight: 680; line-height: 1.1; letter-spacing: -0.03em; }
+.fy-page-intro { max-width: 40rem; margin: .8rem 0 0; color: var(--c-muted); font-size: 1.08rem; line-height: 1.6; }
+.hs--first { background: none; }
+.hs-prose { max-width: var(--text-col); font-size: 1rem; line-height: 1.72; }
+.hs-prose > :first-child { margin-top: 0; }
+.hs-prose h3 { font-size: 1.1rem; margin-top: 1.8em; }
+
+@media (max-width: 860px) {
+  .hs { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; }
+  .hs-head { position: static; display: flex; flex-wrap: wrap; align-items: center; column-gap: .8rem; }
+  .hs-icon { margin-bottom: 0; }
+  .hs-sub { flex-basis: 100%; }
+}
+
+/* ---------- Header ---------- */
+
+#site-header.header {
+  --color-header-fg: var(--c-ink);
+  padding-top: 0; padding-bottom: 0;
+  background: color-mix(in srgb, var(--c-bg) 86%, transparent);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border-bottom: 1px solid var(--c-line);
+  box-shadow: none;
+}
+#site-header .navbar {
+  max-width: var(--container); margin: 0 auto; padding: 0 1.5rem;
+  min-height: 60px; align-items: center;
+}
+#site-header .navbar-brand {
+  font-size: 1rem; font-weight: 650; letter-spacing: -0.01em; color: var(--c-ink);
+}
+#site-header .nav-link {
+  color: var(--c-muted);
+  font-size: 0.875rem; font-weight: 500;
+  padding: 0.4rem 0.15rem; border-bottom: 1.5px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+#site-header .nav-link:hover, #site-header .nav-link.active { color: var(--c-ink); border-bottom-color: var(--c-accent); }
+#site-header [data-search-toggle], #site-header .theme-toggle { color: var(--c-muted); }
+#site-header [data-search-toggle]:hover, #site-header .theme-toggle:hover { color: var(--c-ink); }
+@media (min-width: 1024px) {
+  #site-header .navbar-nav { gap: 1.6rem; margin-right: 1.2rem; }
+  #site-header .navbar-nav.lg\:space-x-2 > :not(:last-child), #site-header .navbar-nav.xl\:space-x-8 > :not(:last-child) { margin-right: 0; }
+}
+@media (max-width: 1023px) {
+  #site-header #nav-menu { padding-top: 0.5rem; }
+  #site-header #nav-menu .nav-link { display: block; font-size: 1rem; padding: 0.55rem 0; border-bottom: 1px solid var(--c-line); }
+}
+
+/* ---------- Footer ---------- */
+
+.page-footer footer {
+  max-width: var(--container); margin: 4rem auto 0; padding: 2.5rem 1.5rem 2rem;
+  border-top: 1px solid var(--c-line); color: var(--c-muted); font-size: 0.8rem;
+}
+.page-footer footer a { color: var(--c-muted); }
+.page-footer footer a:hover { color: var(--c-ink); }
+.page-footer .footer-license-icons svg { width: 18px; height: 18px; }
+/* Visitor counter: loaded on every page for counting, shown only on /misc/. */
+.visitor-counter { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- Theme-rendered content pages (courses, prospective students, experience) ---------- */
+
+.prose {
+  --tw-prose-body: var(--c-text);
+  --tw-prose-headings: var(--c-ink);
+  --tw-prose-links: var(--c-accent);
+  --tw-prose-bold: var(--c-ink);
+  --tw-prose-bullets: var(--c-faint);
+  --tw-prose-hr: var(--c-line);
+  --tw-prose-quotes: var(--c-text);
+  --tw-prose-counters: var(--c-muted);
+  --tw-prose-invert-body: var(--c-text);
+  --tw-prose-invert-headings: var(--c-ink);
+  --tw-prose-invert-links: var(--c-accent);
+  --tw-prose-invert-bold: var(--c-ink);
+  --tw-prose-invert-bullets: var(--c-faint);
+  --tw-prose-invert-hr: var(--c-line);
+}
+.prose a { text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.prose a:hover { color: var(--c-accent-hover); }
+.prose :where(h1, h2, h3) { letter-spacing: -0.015em; font-weight: 650; }
+
+/* Docs layout (course pages): lighter sidebar and breadcrumbs. */
+.hb-sidebar-container { border-color: var(--c-line) !important; }
+.hb-sidebar-container a { color: var(--c-muted); }
+.hb-sidebar-container a:hover { color: var(--c-ink); }
+.sidebar-active-item { background: var(--c-accent-soft) !important; color: var(--c-accent) !important; }
+
+/* Landing pages built from theme markdown blocks (e.g. Courses, Experience). */
+.page-body > section, .page-body .landing-section { scroll-margin-top: 72px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* Experience timeline (theme block): flat cards on tokens. */
+.blox-resume-experience .rounded-xl { background: var(--c-surface); border-color: var(--c-line); box-shadow: none; }
+.blox-resume-experience .rounded-xl:hover { background: var(--c-surface); border-color: var(--c-line-strong); }
+.blox-resume-experience .text-3xl { font-size: clamp(2.1rem, 4.4vw, 2.75rem); font-weight: 680; letter-spacing: -0.03em; color: var(--c-ink); }
+.blox-resume-experience .text-xl { font-size: 1.1rem; font-weight: 640; }
+
+/* Footer contact line (hooks/footer-start/00-contact.html). */
+.fy-footer-contact { display: flex; flex-wrap: wrap; justify-content: center; gap: .25rem .5rem; margin: 0 auto .35rem; padding: 0 1rem; font-size: .8rem; color: var(--c-muted); }
+.fy-footer-contact a { color: var(--c-accent); text-decoration: none; }
+.fy-footer-contact a:hover { text-decoration: underline; }
+
+/* Tone palette: six muted tones (numbered research questions, figure markers), the only colours beyond the
+   teal accent and warm. `.sk-<tone>` sets --tone / --tone-soft for any element. */
+:root {
+  --sk-teal: #1d6b64; --sk-teal-soft: #e7f0ec;
+  --sk-blue: #2f5f8a; --sk-blue-soft: #e8eff6;
+  --sk-gold: #8a6512; --sk-gold-soft: #f5eedd;
+  --sk-warm: #b85b33; --sk-warm-soft: #f7ece4;
+  --sk-plum: #6b4f8a; --sk-plum-soft: #efe9f5;
+  --sk-ink: #37433f;  --sk-ink-soft: #eef0ee;
+}
+html.dark {
+  --sk-teal: #7fc8ba; --sk-teal-soft: #1b3330;
+  --sk-blue: #8ab4dc; --sk-blue-soft: #1a2a3a;
+  --sk-gold: #d9b768; --sk-gold-soft: #2f2818;
+  --sk-warm: #e59b77; --sk-warm-soft: #33261f;
+  --sk-plum: #b9a2d9; --sk-plum-soft: #2a2235;
+  --sk-ink: #c9d3d0;  --sk-ink-soft: #1f2826;
+}
+.sk-teal { --tone: var(--sk-teal); --tone-soft: var(--sk-teal-soft); }
+.sk-blue { --tone: var(--sk-blue); --tone-soft: var(--sk-blue-soft); }
+.sk-gold { --tone: var(--sk-gold); --tone-soft: var(--sk-gold-soft); }
+.sk-warm { --tone: var(--sk-warm); --tone-soft: var(--sk-warm-soft); }
+.sk-plum { --tone: var(--sk-plum); --tone-soft: var(--sk-plum-soft); }
+.sk-ink  { --tone: var(--sk-ink);  --tone-soft: var(--sk-ink-soft); }

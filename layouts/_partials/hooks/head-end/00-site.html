@@ -1,0 +1,3 @@
+{{- /* Site-wide design system. Loads first among the head hooks so page-specific styles can build on it. */ -}}
+{{- $css := resources.Get "css/site.css" | minify | fingerprint "sha256" -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />

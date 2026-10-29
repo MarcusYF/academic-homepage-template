@@ -1,0 +1,43 @@
+name: Monthly link check
+
+# Checks every link in the site's content and data on the 1st of each month and opens an issue when some are broken.
+# Relative links are checked against your live site: set the repository variable SITE_URL (Settings → Secrets and
+# variables → Actions → Variables), e.g. https://your-username.github.io/academic-homepage-template/.
+on:
+  schedule:
+    - cron: '0 13 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # 401/403/429: sites that refuse automated checks (sign-in course sites, rate limits) are not reported as broken.
+          args: >-
+            --no-progress --max-concurrency 6 --timeout 30 --max-retries 2
+            --base ${{ vars.SITE_URL || 'https://example.com' }}
+            --accept '100..=103,200..=299,401,403,429'
+            --exclude 'linkedin\.com' --exclude 'scholar\.google\.com' --exclude 'google\.com/maps'
+            --exclude 'example\.(com|org)' --exclude 'localhost' --exclude '^mailto:'
+            'content/**/*.md' 'data/**/*.json' 'data/**/*.yaml'
+          output: ./lychee/report.md
+          fail: false
+
+      - name: Open an issue for broken links
+        if: steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: Broken links found by the monthly check
+          content-filepath: ./lychee/report.md
+          labels: links

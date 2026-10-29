@@ -1,0 +1,41 @@
+{{- /* Custom line icons drawn to match Heroicons outline (24px grid, 1.6 stroke, round caps).
+       Usage: {{ partial "fy-icon.html" "tennis" }}  — falls back to a Heroicon of the same name. */ -}}
+{{- $name := . -}}
+{{- $paths := dict
+  "tennis" `<circle cx="12" cy="12" r="9"/><path d="M5.9 5.4c3.4 3.2 3.4 10 0 13.2M18.1 5.4c-3.4 3.2-3.4 10 0 13.2"/>`
+  "cooking" `<path d="M3 11.5h13.5v.75a4.75 4.75 0 0 1-4.75 4.75h-4A4.75 4.75 0 0 1 3 12.25v-.75Z"/><path d="M16.5 12.25H21"/><path d="M7.25 8.5c0-1.1 1-1.25 1-2.5M10.75 8.5c0-1.1 1-1.25 1-2.5"/>`
+  "music" `<path d="M9 18.5V6.25l10-2.25v12.25"/><circle cx="6.75" cy="18.5" r="2.25"/><circle cx="16.75" cy="16.25" r="2.25"/><path d="M9 9.5l10-2.25"/>`
+  "cat" `<path d="M5 11V4.5l4 3.25h6L19 4.5V11a7 7 0 0 1-14 0Z"/><path d="M9.5 11.5v1M14.5 11.5v1"/><path d="M11 15h2l-1 1.1L11 15Z"/>`
+  "camera" `<path d="M4 8.25A2.25 2.25 0 0 1 6.25 6h1.6l1.4-2h5.5l1.4 2h1.6A2.25 2.25 0 0 1 20 8.25v9.5A2.25 2.25 0 0 1 17.75 20H6.25A2.25 2.25 0 0 1 4 17.75v-9.5Z"/><circle cx="12" cy="12.75" r="3.5"/>`
+  "roots" `<circle cx="7" cy="18" r="2"/><circle cx="17" cy="6" r="2"/><path d="M8.6 16.8C12 15 9.5 9.2 15.3 7" stroke-dasharray="2 2.4"/>`
+  "path" `<path d="M3 18h4l3-6 3 3 3-7h5"/><circle cx="21" cy="8" r=".6" fill="currentColor"/>`
+  "game" `<rect x="4" y="4" width="16" height="16" rx="2.5"/><path d="M12 4v16M4 12h16"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/>`
+  "online" `<path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3L19.5 9"/><path d="M19.5 4.5V9H15"/><path d="M19.5 12a7.5 7.5 0 0 1-12.8 5.3L4.5 15"/><path d="M4.5 19.5V15H9"/>`
+  "dynamics" `<path d="M12 12.75a.75.75 0 1 1 .75-.75 2.25 2.25 0 1 1-2.25-2.25A3.75 3.75 0 1 1 8.25 15 5.25 5.25 0 1 1 16.5 7.5"/><path d="M16.5 4.5v3h3"/>`
+  "theory" `<path d="M3.5 19.5h17"/><path d="M4.5 18.5c3.25 0 4-12 7.5-12s4.25 12 7.5 12"/><path d="M12 6.5v13" stroke-dasharray="1.6 2"/>`
+  "chat" `<path d="M4 5.25A2.25 2.25 0 0 1 6.25 3h11.5A2.25 2.25 0 0 1 20 5.25v8.5A2.25 2.25 0 0 1 17.75 16H9.5L5 20v-4.2A2.25 2.25 0 0 1 4 13.75v-8.5Z"/><path d="M8.25 8.25h7.5M8.25 11.25h4.5"/>`
+  "document" `<path d="M6.5 3h7.25L18 7.25V20a1 1 0 0 1-1 1H6.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M13.5 3v4.5H18M8.75 12h6.5M8.75 15.5h6.5"/>`
+  "spark" `<path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M18 6l-2.1 2.1M8.1 15.9 6 18"/><circle cx="12" cy="12" r="2.25"/>`
+  "teach" `<path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"/><path d="M6.5 10.5v4.25c1.6 1.5 3.4 2.25 5.5 2.25s3.9-.75 5.5-2.25V10.5"/><path d="M21 8.5v5"/>`
+  "news" `<path d="M5 4.5h11.5a1 1 0 0 1 1 1V19a1.5 1.5 0 0 0 1.5 1.5H6.5A1.5 1.5 0 0 1 5 19V4.5Z"/><path d="M17.5 9h2a1 1 0 0 1 1 1v9a1.5 1.5 0 0 1-3 0M8.5 8.5h5.5M8.5 12h5.5M8.5 15.5h3.5"/>`
+  "compass" `<circle cx="12" cy="12" r="9"/><path d="m15.75 8.25-2.25 5.25-5.25 2.25 2.25-5.25 5.25-2.25Z"/>`
+  "route" `<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7.5a3 3 0 0 0 0-6h-7a3 3 0 0 1 0-6H16"/>`
+  "flask" `<path d="M9.5 3.5h5M10.25 3.5v5.25L5.3 17.4a2.1 2.1 0 0 0 1.85 3.1h9.7a2.1 2.1 0 0 0 1.85-3.1l-4.95-8.65V3.5"/><path d="M7.5 14.5h9"/>`
+  "students" `<path d="M4 5.25A2.25 2.25 0 0 1 6.25 3h11.5A2.25 2.25 0 0 1 20 5.25v8.5A2.25 2.25 0 0 1 17.75 16H9.5L5 20v-4.2A2.25 2.25 0 0 1 4 13.75v-8.5Z"/><path d="M12 6.75v4.5M9.75 9h4.5"/>`
+  "network" `<circle cx="5.5" cy="7" r="2"/><circle cx="5.5" cy="17" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="18.5" cy="12" r="2"/><path d="M7.4 7.6l2.7 3.6M7.4 16.4l2.7-3.6M7.3 6.4L10.1 5.6M7.3 17.6l2.8.8M14 12h2.5M13.7 6.3l3.3 4.3M13.7 17.7l3.3-4.3"/>`
+  "scales" `<path d="M12 4v16M8 20h8M5 7h14M12 4.5l-.01 0"/><path d="M5 7l-2.5 6a3 3 0 0 0 5 0L5 7ZM19 7l-2.5 6a3 3 0 0 0 5 0L19 7Z"/>`
+  "arrow" `<path d="M5 12h14M13 6l6 6-6 6"/>`
+  "external" `<path d="M14 4h6v6M20 4l-8.5 8.5"/><path d="M18 13.5V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4.5"/>`
+  "info" `<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.75h.01"/>`
+  "prompter" `<rect x="3.5" y="4" width="17" height="12" rx="2"/><path d="M7 8h6.5M7 11.25h10"/><path d="M15.5 8h1.5" stroke-dasharray="0.01 2.2"/><path d="M12 16v3.5M8.5 19.5h7"/>`
+  "desk" `<rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/>`
+  "check" `<path d="M5 12.5l4.25 4.25L19 7"/>`
+  "download" `<path d="M12 4v11M7.5 10.5 12 15l4.5-4.5"/><path d="M4.5 16.5v1.75A1.75 1.75 0 0 0 6.25 20h11.5a1.75 1.75 0 0 0 1.75-1.75V16.5"/>`
+  "code" `<path d="M8.5 7.5 4 12l4.5 4.5M15.5 7.5 20 12l-4.5 4.5M13.25 5.5l-2.5 13"/>`
+  "play" `<circle cx="12" cy="12" r="9"/><path d="M10 8.75v6.5l5.25-3.25L10 8.75Z"/>`
+-}}
+{{- with index $paths $name -}}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{{ . | safeHTML }}</svg>
+{{- else -}}
+{{ partial "functions/get_icon" (dict "name" (printf "hero/%s" $name) "attributes" "aria-hidden=\"true\"") }}
+{{- end -}}

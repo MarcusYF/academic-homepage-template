@@ -1,0 +1,36 @@
+# Optional: deploy on Netlify instead of GitHub Pages (set `deploy.host: netlify` in hugoblox.yaml, then connect the
+# repository in Netlify). The build installs the Tailwind/Pagefind tools, builds with Hugo and indexes search.
+[build]
+  command = """
+    set -e
+    pnpm install --no-frozen-lockfile
+    hugo --gc --minify -b $URL
+    pnpm run pagefind
+  """
+  publish = "public"
+
+[build.environment]
+  HUGO_VERSION = "0.157.0"
+  GO_VERSION = "1.21.5"
+  NODE_VERSION = "22"
+  PNPM_FLAGS = "--no-frozen-lockfile"
+  HUGO_ENABLEGITINFO = "true"
+
+[context.production.environment]
+  HUGO_ENV = "production"
+
+[context.deploy-preview]
+  command = """
+    set -e
+    pnpm install --no-frozen-lockfile
+    hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL
+    pnpm run pagefind
+  """
+
+[context.branch-deploy]
+  command = """
+    set -e
+    pnpm install --no-frozen-lockfile
+    hugo --gc --minify -b $DEPLOY_PRIME_URL
+    pnpm run pagefind
+  """

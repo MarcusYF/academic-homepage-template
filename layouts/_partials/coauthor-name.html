@@ -1,0 +1,11 @@
+{{- /* One verified destination per author; search fallbacks are explicitly labelled. */ -}}
+{{- $raw := .name -}}
+{{- $display := .display | default $raw -}}
+{{- $entry := index site.Data.coauthor_links.authors $raw -}}
+{{- if $entry -}}
+  <a href="{{ $entry.url }}" target="_blank" rel="noopener noreferrer" class="coauthor-link underline"{{ if eq $entry.kind "scholar-search" }} title="Google Scholar search for this author and research topic; a personal profile has not been verified"{{ else }} title="{{ $display }} — {{ if eq $entry.kind "scholar" }}Google Scholar{{ else }}academic homepage{{ end }}"{{ end }}>{{ $display }}</a>
+{{- else if .fallback -}}
+  <a href="{{ .fallback }}">{{ $display }}</a>
+{{- else -}}
+  {{ $display }}
+{{- end -}}

@@ -1,0 +1,11 @@
+# Full venue names for publication_short acronyms (*ICML*, 2024 → ICML). Used by Google Scholar meta tags.
+ICML: International Conference on Machine Learning
+COLT: Conference on Learning Theory
+KDD: ACM SIGKDD Conference on Knowledge Discovery and Data Mining
+ICLR: International Conference on Learning Representations
+NeurIPS: Advances in Neural Information Processing Systems
+EC: ACM Conference on Economics and Computation
+# Placeholder venues used by the example publications; delete them with the examples.
+EXCONF: Example Conference on Machine Learning
+EXJ: Example Journal of Learning
+SAMPLE: Sample Symposium on Data Science

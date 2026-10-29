@@ -1,0 +1,29 @@
+{{- /* Markdown section in the site's two-column style (label left, prose right).
+       Replaces the theme's centered Markdown block; the first section of a landing page also prints the page title. */ -}}
+{{- $page := .wcPage -}}
+{{- $block := .wcBlock -}}
+{{- $content := $block.content -}}
+{{- if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end -}}
+{{- $first := false -}}
+{{- with $page.Params.sections }}{{ $first = eq (index . 0).id $block.id }}{{ end -}}
+{{- $title := "" -}}
+{{- with index $content "title" }}{{ $title = printf "%v" . | emojify | $page.RenderString }}{{ end -}}
+{{- $text := "" -}}
+{{- with index $content "text" }}{{ $text = printf "%v" . | emojify | $page.RenderString | safeHTML }}{{ end -}}
+
+{{- if and $first (not $page.IsHome) }}
+<header class="s-container fy-page-head">
+  <h1 class="fy-page-title">{{ $page.Title }}</h1>
+  {{- with $page.Params.summary }}<p class="fy-page-intro">{{ . }}</p>{{ end }}
+</header>
+{{- end }}
+<div class="hs s-container{{ if $first }} hs--first{{ end }}">
+  <header class="hs-head">
+    {{- with index $content "icon" }}<span class="hs-icon">{{ partial "fy-icon.html" . }}</span>{{ end }}
+    {{- with $title }}<h2 class="hs-title">{{ . }}</h2>{{ end }}
+    {{- with index $content "subtitle" }}<p class="hs-sub">{{ . }}</p>{{ end }}
+  </header>
+  <div class="hs-body">
+    {{- with $text }}<div class="prose prose-slate dark:prose-invert hs-prose">{{ . }}</div>{{ end }}
+  </div>
+</div>

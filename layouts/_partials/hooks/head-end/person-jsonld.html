@@ -1,0 +1,38 @@
+{{- /* schema.org Person on the homepage, built from data/authors/me.yaml, so search engines can tell you apart
+       from others with the same name (sameAs links to ORCID, Google Scholar, GitHub, LinkedIn). Optional fields in
+       me.yaml → jsonld: description, works_for {name, department, department_url}, alumni_of [names]. */ -}}
+{{- if .IsHome -}}
+{{- $me := index site.Data.authors "me" -}}
+{{- $profile := partial "functions/get_author_profile" "me" -}}
+{{- $sameAs := slice -}}
+{{- $email := "" -}}
+{{- range $me.links -}}
+  {{- if hasPrefix .url "mailto:" }}{{ $email = strings.TrimPrefix "mailto:" .url }}
+  {{- else if and (hasPrefix .url "http") (ne .icon "hero/map-pin") (not (in .url "google.com/maps")) (not (in .url "openstreetmap.org")) }}{{ $sameAs = $sameAs | append .url }}{{ end -}}
+{{- end -}}
+{{- $person := dict
+  "@context" "https://schema.org"
+  "@type" "Person"
+  "name" $me.name.display
+  "givenName" $me.name.given
+  "familyName" $me.name.family
+  "url" site.Home.Permalink
+  "jobTitle" $me.role
+  "knowsAbout" $me.interests
+  "sameAs" $sameAs
+-}}
+{{- $j := $me.jsonld | default dict -}}
+{{- with $j.description }}{{ $person = merge $person (dict "description" .) }}{{ end -}}
+{{- with $j.works_for -}}
+  {{- $org := dict "@type" "CollegeOrUniversity" "name" .name -}}
+  {{- with .department }}{{ $org = merge $org (dict "department" (dict "@type" "Organization" "name" . "url" ($j.works_for.department_url | default ""))) }}{{ end -}}
+  {{- $person = merge $person (dict "worksFor" $org) -}}
+{{- end -}}
+{{- with $j.alumni_of -}}
+  {{- $al := slice }}{{ range . }}{{ $al = $al | append (dict "@type" "CollegeOrUniversity" "name" .) }}{{ end -}}
+  {{- $person = merge $person (dict "alumniOf" $al) -}}
+{{- end -}}
+{{- with $email }}{{ $person = merge $person (dict "email" .) }}{{ end -}}
+{{- with $profile.avatar }}{{ $person = merge $person (dict "image" (.Fill "400x400 Center webp").Permalink) }}{{ end -}}
+<script type="application/ld+json">{{ $person | jsonify | safeJS }}</script>
+{{- end -}}

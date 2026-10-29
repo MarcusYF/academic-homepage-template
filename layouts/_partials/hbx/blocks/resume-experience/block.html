@@ -1,0 +1,73 @@
+{{- /* Experience page: an overview chart (one bar per position on a shared year axis) above a two-column list.
+       Data: data/authors/<username>.yaml → experience [{role, org, short, kind, start, end, summary}].
+       kind: study | industry | internship | visiting | faculty. Entries without `end` run to today. */ -}}
+{{- $page := .wcPage -}}
+{{- $c := .wcBlock.content -}}
+{{- $fmt := .wcBlock.design.date_format | default "Jan 2006" -}}
+{{- $username := $c.username | default "me" -}}
+{{- $items := (index site.Data.authors $username).experience -}}
+{{- $kinds := dict "study" "Study" "industry" "Industry" "internship" "Internship" "visiting" "Visiting" "faculty" "Faculty" -}}
+
+{{- /* Year range of the chart: first start year to next year. */ -}}
+{{- $y0 := now.Year -}}
+{{- range $items }}{{ $y := (time.AsTime .start).Year }}{{ if lt $y $y0 }}{{ $y0 = $y }}{{ end }}{{ end -}}
+{{- $y1 := add now.Year 1 -}}
+{{- $span := float (sub $y1 $y0) -}}
+{{- $nowY := partial "functions/fy-year.html" now -}}
+
+<div class="mb xp s-container">
+  <header class="mb-head">
+    <p class="s-kicker">{{ partial "fy-icon.html" "path" }}{{ $c.kicker | default "Experience" }}</p>
+    <h1 class="mb-title">{{ $c.title | default $page.Title }}</h1>
+    {{- with $c.intro }}<p class="mb-intro">{{ . | $page.RenderString }}</p>{{ end }}
+  </header>
+
+  <figure class="xp-chart s-card" aria-label="Timeline of positions, {{ $y0 }} to today">
+    <ol class="xp-rows" style="--xp-years: {{ $span }}">
+      {{- range sort $items "start" }}
+      {{- $a := partial "functions/fy-year.html" .start -}}
+      {{- $b := $nowY -}}{{ with .end }}{{ $b = partial "functions/fy-year.html" . }}{{ end -}}
+      {{- $left := div (mul (sub $a $y0) 100) $span -}}
+      {{- $width := div (mul (sub $b $a) 100) $span -}}
+      <li class="xp-row xp-k-{{ .kind }}{{ if not .end }} xp-current{{ end }}">
+        <span class="xp-label">{{ .short | default .org }}</span>
+        <span class="xp-track">
+          <span class="xp-bar" style="left: {{ $left | lang.FormatNumber 2 }}%; width: {{ math.Max $width 0.8 | lang.FormatNumber 2 }}%" title="{{ .role }}, {{ .org }}: {{ (time.AsTime .start).Format "Jan 2006" }} – {{ with .end }}{{ (time.AsTime .).Format "Jan 2006" }}{{ else }}present{{ end }}"></span>
+        </span>
+      </li>
+      {{- end }}
+      <li class="xp-row xp-axis" aria-hidden="true">
+        <span class="xp-label"></span>
+        <span class="xp-track">
+          {{- range seq $y0 (sub $y1 1) }}
+          {{- $i := sub . $y0 }}
+          <span class="xp-tick{{ if ne (mod $i 2) 0 }} xp-tick--odd{{ end }}{{ if ne (mod $i 4) 0 }} xp-tick--q{{ end }}" style="left: {{ div (mul $i 100.0) $span | lang.FormatNumber 2 }}%">{{ . }}</span>
+          {{- end }}
+        </span>
+      </li>
+    </ol>
+    <figcaption class="xp-legend">
+      {{- range slice "study" "visiting" "faculty" "industry" "internship" }}<span><i class="xp-key xp-k-{{ . }}"></i>{{ index $kinds . }}</span>{{ end -}}
+    </figcaption>
+  </figure>
+
+  <ol class="xp-list">
+    {{- range $items }}
+    {{- $s := time.AsTime .start -}}
+    {{- $e := now -}}{{ with .end }}{{ $e = time.AsTime . }}{{ end -}}
+    {{- $months := add (add (mul (sub $e.Year $s.Year) 12) (sub (int $e.Month) (int $s.Month))) 1 -}}
+    {{- $yrs := div $months 12 -}}{{- $mos := mod $months 12 -}}
+    <li class="xp-entry">
+      <div class="xp-when">
+        <p class="xp-dates"><time datetime="{{ $s.Format "2006-01" }}">{{ $s.Format $fmt }}</time> – {{ with .end }}<time datetime="{{ $e.Format "2006-01" }}">{{ $e.Format $fmt }}</time>{{ else }}Present{{ end }}</p>
+        <p class="xp-meta"><i class="xp-key xp-k-{{ .kind }}"></i>{{ index $kinds .kind | default .kind }} · {{ if $yrs }}{{ $yrs }} yr{{ if gt $yrs 1 }}s{{ end }}{{ end }}{{ if and $yrs $mos }} {{ end }}{{ if $mos }}{{ $mos }} mo{{ if gt $mos 1 }}s{{ end }}{{ end }}</p>
+      </div>
+      <div class="xp-what">
+        <h2 class="xp-role">{{ .role }}</h2>
+        <p class="xp-org">{{ .org }}</p>
+        {{- with .summary }}<div class="xp-summary">{{ . | $page.RenderString (dict "display" "block") }}</div>{{ end }}
+      </div>
+    </li>
+    {{- end }}
+  </ol>
+</div>

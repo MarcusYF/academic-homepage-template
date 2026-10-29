@@ -1,0 +1,5 @@
+{{- /* Count visits on every page with the optional visitor map (params.yaml → visitor_map.id); the map itself is
+       shown only on the Misc page. Nothing is loaded while the id is empty. */ -}}
+{{- if and site.Params.visitor_map.id (ne .Path "/misc") }}
+<div class="visitor-counter" aria-hidden="true">{{ partial "visitor-map.html" . }}</div>
+{{- end }}

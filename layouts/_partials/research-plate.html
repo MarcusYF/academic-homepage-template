@@ -1,0 +1,104 @@
+{{- /* Research schematic: two actors in a feedback loop. Numbered markers place the three research questions on
+       the loop (1 top arc, 2 middle, 3 bottom arc); the question list uses the same numbers and tones. An optional plum
+       "now" layer (tag, a pill on each card, one open question under each card) marks a current focus; on phones the
+       pills use left_tag_short / right_tag_short (about 8 characters) when set.
+       Every label comes from the research-overview block's `plate` map (see content/_index.md); empty values fall back
+       to the defaults below. Two drawings: .rp-wide (desktop) and .rp-compact (phones). Paint classes live in discovery.css.
+       Icons are scaled <g> groups, not nested <svg>: Hugo's minifier leaves SVG mode at a nested </svg>. */ -}}
+{{- $p := .wcBlock.content.plate -}}
+{{- if not (reflect.IsMap $p) }}{{ $p = dict }}{{ end -}}
+{{- $L := $p.left | default dict -}}{{- $R := $p.right | default dict -}}
+{{- $T := $p.top | default dict -}}{{- $B := $p.bottom | default dict -}}{{- $M := $p.middle | default dict -}}
+{{- $N := $p.now -}}
+{{- $lt := $L.title | default "People" -}}{{- $lc := $L.caption | default (slice "users · learners" "decision makers") -}}{{- $ls := $L.short | default $lt -}}
+{{- $rt := $R.title | default "Algorithms" -}}{{- $rc := $R.caption | default (slice "models · platforms" "learning systems") -}}{{- $rs := $R.short | default $rt -}}
+{{- $tt := $T.label | default "Recommendations" -}}{{- $tc := $T.caption | default "rankings · rewards · answers" -}}
+{{- $bt := $B.label | default "Data & feedback" -}}{{- $bc := $B.caption | default "choices · ratings · labels" -}}
+{{- $mt := $M.label | default "Interaction" -}}{{- $mc := $M.caption | default "dynamics · equilibria" -}}
+{{- $mshort := $M.compact | default (slice $mt) -}}
+{{- $desc := $p.description | default (printf "A feedback loop: %s supply %s to %s, which return %s; %s sits between them. Markers 1 to 3 match the three questions below." (lower $lt) (lower $bt) (lower $rt) (lower $tt) (lower $mt)) -}}
+{{- $people := `<path d="M18 18.72a9.094 9.094 0 0 0 3.741-.479a3 3 0 0 0-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72a8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0a3 3 0 0 1 6 0m6 3a2.25 2.25 0 1 1-4.5 0a2.25 2.25 0 0 1 4.5 0m-13.5 0a2.25 2.25 0 1 1-4.5 0a2.25 2.25 0 0 1 4.5 0"/>` -}}
+{{- $spark := `<path d="M12 3c.6 5.2 3.8 8.4 9 9c-5.2.6-8.4 3.8-9 9c-.6-5.2-3.8-8.4-9-9c5.2-.6 8.4-3.8 9-9z"/>` -}}
+{{- /* A small three-layer network: filled nodes, thin edges (attributes override the inherited .rp-ico stroke). */ -}}
+{{- $model := `<path d="M5 8L12 5M5 8L12 12M5 8L12 19M5 16L12 5M5 16L12 12M5 16L12 19M12 5L19 12M12 12L19 12M12 19L19 12" stroke-width=".9" opacity=".6"/><g fill="currentColor" stroke="none"><circle cx="5" cy="8" r="2"/><circle cx="5" cy="16" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="12" r="2.4"/></g>` -}}
+
+<svg class="rp-wide" viewBox="0 0 720 272" role="img" aria-labelledby="rp-wide-title">
+  <title id="rp-wide-title">{{ $desc }}</title>
+  <defs>
+    <marker id="rpw-w" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="rp-head rp-warm" d="M1 1.2L9 5L1 8.8Z"/></marker>
+    <marker id="rpw-t" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="rp-head rp-teal" d="M1 1.2L9 5L1 8.8Z"/></marker>
+  </defs>
+  <path class="rp-arc rp-warm" d="M524 108C446 44 274 44 196 108" marker-end="url(#rpw-w)"/>
+  <path class="rp-arc rp-teal" d="M196 164C274 228 446 228 524 164" marker-end="url(#rpw-t)"/>
+
+  <text class="rp-flow rp-warm" x="360" y="22" text-anchor="middle">{{ $tt }}</text>
+  <text class="rp-cap" x="360" y="40" text-anchor="middle">{{ $tc }}</text>
+  <text class="rp-flow" x="360" y="246" text-anchor="middle"><tspan class="rp-teal">{{ $bt }}</tspan></text>
+  <text class="rp-cap" x="360" y="264" text-anchor="middle">{{ $bc }}</text>
+  <text class="rp-flow rp-ink" x="360" y="146" text-anchor="middle">{{ $mt }}</text>
+  <text class="rp-cap" x="360" y="164" text-anchor="middle">{{ $mc }}</text>
+
+  <g class="rp-mk rp-warm"><circle cx="360" cy="60" r="12"/><text x="360" y="64.6" text-anchor="middle">1</text></g>
+  <g class="rp-mk rp-blue"><circle cx="360" cy="114" r="12"/><text x="360" y="118.6" text-anchor="middle">2</text></g>
+  <g class="rp-mk rp-teal"><circle cx="360" cy="212" r="12"/><text x="360" y="216.6" text-anchor="middle">3</text></g>
+
+  <rect class="rp-card" x="12" y="66" width="180" height="140" rx="16"/>
+  <circle class="rp-ico-bg rp-teal" cx="102" cy="100" r="24"/>
+  <g class="rp-ico rp-teal" transform="translate(86 84) scale(1.3333)">{{ $people | safeHTML }}</g>
+  <text class="rp-title" x="102" y="148" text-anchor="middle">{{ $lt }}</text>
+  {{- range $i, $c := first 2 $lc }}
+  <text class="rp-cap" x="102" y="{{ add 167 (mul $i 16) }}" text-anchor="middle">{{ $c }}</text>
+  {{- end }}
+
+  <rect class="rp-card" x="528" y="66" width="180" height="140" rx="16"/>
+  <circle class="rp-ico-bg rp-ink" cx="618" cy="100" r="24"/>
+  <g class="rp-ico rp-ink" transform="translate(600 82) scale(1.5)">{{ $model | safeHTML }}</g>
+  <text class="rp-title" x="618" y="148" text-anchor="middle">{{ $rt }}</text>
+  {{- range $i, $c := first 2 $rc }}
+  <text class="rp-cap" x="618" y="{{ add 167 (mul $i 16) }}" text-anchor="middle">{{ $c }}</text>
+  {{- end }}
+
+  {{- with $N }}
+  <g class="rp-plum">
+    <g class="rp-now"><rect x="12" y="8" width="40" height="18" rx="9"/><text class="rp-now-k" x="32" y="20.6" text-anchor="middle">{{ .tag | default "NOW" }}</text><text class="rp-now-t" x="60" y="21.2">{{ .text }}</text></g>
+    {{- with .left_tag }}<g class="rp-agent"><rect x="35" y="194" width="134" height="24" rx="12"/><g transform="translate(49 199) scale(.5833)">{{ $spark | safeHTML }}</g><text x="69" y="210.4">{{ . }}</text></g>{{ end }}
+    {{- with .right_tag }}<g class="rp-agent"><rect x="546" y="194" width="144" height="24" rx="12"/><g transform="translate(560 199) scale(.5833)">{{ $spark | safeHTML }}</g><text x="580" y="210.4">{{ . }}</text></g>{{ end }}
+    {{- range $i, $q := first 2 (.left_question | default slice) }}<text class="rp-q" x="102" y="{{ add 240 (mul $i 16) }}" text-anchor="middle">{{ $q }}</text>{{ end }}
+    {{- range $i, $q := first 2 (.right_question | default slice) }}<text class="rp-q" x="618" y="{{ add 240 (mul $i 16) }}" text-anchor="middle">{{ $q }}</text>{{ end }}
+  </g>
+  {{- end }}
+</svg>
+
+<svg class="rp-compact" viewBox="0 0 360 284" role="img" aria-labelledby="rp-compact-title">
+  <title id="rp-compact-title">{{ $desc }}</title>
+  <defs>
+    <marker id="rpc-w" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="rp-head rp-warm" d="M1 1.2L9 5L1 8.8Z"/></marker>
+    <marker id="rpc-t" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path class="rp-head rp-teal" d="M1 1.2L9 5L1 8.8Z"/></marker>
+  </defs>
+  <path class="rp-arc rp-warm" d="M250 92C214 40 146 40 110 92" marker-end="url(#rpc-w)"/>
+  <path class="rp-arc rp-teal" d="M110 128C146 180 214 180 250 128" marker-end="url(#rpc-t)"/>
+  <text class="rp-flow rp-warm" x="180" y="20" text-anchor="middle">{{ $tt }}</text>
+  <text class="rp-flow" x="180" y="208" text-anchor="middle"><tspan class="rp-teal">{{ $bt }}</tspan></text>
+  {{- $n := len (first 2 $mshort) }}{{ range $i, $w := first 2 $mshort }}
+  <text class="rp-flow rp-ink" x="180" y="{{ add (cond (eq $n 1) 132 124) (mul $i 16) }}" text-anchor="middle">{{ $w }}</text>
+  {{- end }}
+  <g class="rp-mk rp-warm"><circle cx="180" cy="53" r="11"/><text x="180" y="57.4" text-anchor="middle">1</text></g>
+  <g class="rp-mk rp-blue"><circle cx="180" cy="96" r="11"/><text x="180" y="100.4" text-anchor="middle">2</text></g>
+  <g class="rp-mk rp-teal"><circle cx="180" cy="167" r="11"/><text x="180" y="171.4" text-anchor="middle">3</text></g>
+  <rect class="rp-card" x="4" y="58" width="104" height="104" rx="14"/>
+  <circle class="rp-ico-bg rp-teal" cx="56" cy="86" r="20"/>
+  <g class="rp-ico rp-teal" transform="translate(43 73) scale(1.0833)">{{ $people | safeHTML }}</g>
+  <text class="rp-title" x="56" y="135" text-anchor="middle">{{ $ls }}</text>
+  <rect class="rp-card" x="252" y="58" width="104" height="104" rx="14"/>
+  <circle class="rp-ico-bg rp-ink" cx="304" cy="86" r="20"/>
+  <g class="rp-ico rp-ink" transform="translate(289 71) scale(1.25)">{{ $model | safeHTML }}</g>
+  <text class="rp-title" x="304" y="135" text-anchor="middle">{{ $rs }}</text>
+  {{- with $N }}
+  <g class="rp-plum">
+    {{- with .left_tag_short | default .left_tag }}<g class="rp-agent"><rect x="8" y="152" width="96" height="20" rx="10"/><g transform="translate(23 155.5) scale(.5417)">{{ $spark | safeHTML }}</g><text x="40" y="166">{{ . }}</text></g>{{ end }}
+    {{- with .right_tag_short | default .right_tag }}<g class="rp-agent"><rect x="256" y="152" width="96" height="20" rx="10"/><g transform="translate(267 155.5) scale(.5417)">{{ $spark | safeHTML }}</g><text x="284" y="166">{{ . }}</text></g>{{ end }}
+    <g class="rp-now"><rect x="80" y="230" width="38" height="17" rx="8.5"/><text class="rp-now-k" x="99" y="242" text-anchor="middle">{{ .tag | default "NOW" }}</text><text class="rp-now-t" x="125" y="242.6">{{ .text }}</text></g>
+    {{- with .compact_questions }}{{ range $i, $q := first 2 . }}<text class="rp-q" x="180" y="{{ add 264 (mul $i 17) }}" text-anchor="middle">{{ $q }}</text>{{ end }}{{ end }}
+  </g>
+  {{- end }}
+</svg>

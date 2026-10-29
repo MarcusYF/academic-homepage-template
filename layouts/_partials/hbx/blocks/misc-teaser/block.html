@@ -1,0 +1,20 @@
+{{- $page := .wcPage -}}
+{{- $c := .wcBlock.content -}}
+<div class="hs s-container">
+  <header class="hs-head">
+    <span class="hs-icon">{{ partial "fy-icon.html" ($c.icon | default "compass") }}</span>
+    <h2 class="hs-title">{{ $c.title }}</h2>
+  </header>
+  <div class="hs-body">
+    {{- with $c.lead }}<p class="fy-lead">{{ . | $page.RenderString }}</p>{{ end }}
+    <ul class="fy-interests">
+      {{- range $c.interests }}
+      <li><a class="fy-interest" href="{{ .url | relURL }}">
+        <span class="fy-interest-icon">{{ partial "fy-icon.html" .icon }}</span>
+        <span>{{ .label }}</span>
+      </a></li>
+      {{- end }}
+    </ul>
+    {{- partial "home-links.html" $c.links }}
+  </div>
+</div>

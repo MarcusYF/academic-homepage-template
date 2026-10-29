@@ -1,0 +1,97 @@
+{{- /* Misc page: a bento grid of illustrated cards. All text lives in content/misc/_index.md.
+       Card fields: id, span (4|5|6|7|8|12), icon, title, art (see misc-art.html), text,
+       facts [{value, label, url}], groups [{label, items}], timeline {stages, marks}, link {label, url}, cta (bool). */ -}}
+{{- $page := .wcPage -}}
+{{- $c := .wcBlock.content -}}
+<div class="mb s-container">
+  <header class="mb-head">
+    {{- with $c.kicker }}<p class="s-kicker">{{ partial "fy-icon.html" "compass" }}{{ . }}</p>{{ end }}
+    <h1 class="mb-title">{{ $c.title }}</h1>
+    {{- with $c.intro }}<p class="mb-intro">{{ . | $page.RenderString }}</p>{{ end }}
+  </header>
+
+  <div class="mb-grid">
+    {{- range $c.cards }}
+    {{- $card := . }}
+    <article class="mb-card s-card mb-span-{{ .span | default 4 }}{{ if .cta }} mb-card--cta{{ end }}"{{ with .id }} id="{{ . }}"{{ end }}>
+      {{- with .art }}<div class="mb-art">{{ partial "misc-art.html" . }}</div>{{ end }}
+
+      {{- with .timeline }}
+      {{- $stages := .stages -}}
+      {{- $marks := .marks | default slice -}}
+      {{- $years := 0 -}}{{- range $stages }}{{ $years = add $years (sub .to .from) }}{{ end }}
+      <div class="mb-art mb-art--timeline">
+        <ol class="mb-timeline" style="grid-template-columns: {{ range $stages }}{{ sub .to .from }}fr {{ end }}; --years: {{ $years }}" aria-label="Timeline">
+          {{- range $stages }}
+          {{- /* Hugo compares uint64 front matter with floats unreliably, so convert first. */ -}}
+          {{- $from := float .from -}}{{- $to := float .to -}}
+          <li class="mb-stage mb-stage--{{ .kind | default "study" }}">
+            <span class="mb-bar">
+              {{- range $mi, $m := $marks }}{{ with $m }}{{ $at := float .at }}{{ if and (ge $at $from) (lt $at $to) }}
+              <span class="mb-mark{{ if eq (mod $mi 2) 1 }} mb-mark--alt{{ end }}" style="left: {{ div (mul (sub $at $from) 100) (sub $to $from) | lang.FormatNumber 1 }}%" title="{{ .label }}">{{ with .short }}<span class="mb-mark-label">{{ . }}</span>{{ end }}</span>
+              {{- end }}{{ end }}{{ end }}
+            </span>
+            <span class="mb-stage-label">{{ .label }}</span>
+            <span class="mb-stage-years">{{ .years }}</span>
+            {{- with .note }}<span class="mb-stage-note">{{ . }}</span>{{ end }}
+          </li>
+          {{- end }}
+        </ol>
+        {{- with .legend }}
+        <p class="mb-legend">
+          {{- range . }}<span><i class="mb-key mb-key--{{ .kind }}"></i>{{ .label }}</span>{{ end -}}
+        </p>
+        {{- end }}
+      </div>
+      {{- end }}
+
+      <div class="mb-body">
+        <h2 class="mb-card-title">
+          {{- with .icon }}<span class="mb-card-icon">{{ partial "fy-icon.html" . }}</span>{{ end -}}
+          {{ .title }}
+        </h2>
+        {{- with .text }}<div class="mb-text">{{ . | $page.RenderString (dict "display" "block") }}</div>{{ end }}
+
+        {{- with .facts }}
+        <dl class="mb-facts">
+          {{- range . }}
+          <div class="mb-fact">
+            <dt>{{ .label }}</dt>
+            <dd>{{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}{{ .value }}{{ with .url }}</a>{{ end }}</dd>
+          </div>
+          {{- end }}
+        </dl>
+        {{- end }}
+
+        {{- with .groups }}
+        <dl class="mb-groups">
+          {{- range . }}
+          <div class="mb-group">
+            <dt>{{ .label }}</dt>
+            <dd>{{ range .items }}<span class="s-pill">{{ . }}</span>{{ end }}</dd>
+          </div>
+          {{- end }}
+        </dl>
+        {{- end }}
+
+        {{- with .link }}
+        {{- $external := hasPrefix .url "http" -}}
+        <p class="mb-link">
+          <a class="{{ if $card.cta }}mb-button{{ else }}s-link{{ end }}" href="{{ .url | relURL }}"{{ if $external }} target="_blank" rel="noopener"{{ end }}>{{ .label }}<span class="s-arrow s-icon">{{ partial "fy-icon.html" (cond $external "external" "arrow") }}</span></a>
+        </p>
+        {{- end }}
+      </div>
+    </article>
+    {{- end }}
+  </div>
+
+  {{- if site.Params.visitor_map.id }}{{ with $c.visitors }}
+  <section class="mb-visitors s-card" aria-labelledby="mb-visitors-title">
+    <div class="mb-visitors-text">
+      <h2 class="mb-card-title" id="mb-visitors-title"><span class="mb-card-icon">{{ partial "fy-icon.html" "globe-alt" }}</span>{{ .title }}</h2>
+      {{- with .text }}<p class="mb-text">{{ . }}</p>{{ end }}
+    </div>
+    <div class="mb-visitors-map">{{ partial "visitor-map.html" $page }}</div>
+  </section>
+  {{- end }}{{ end }}
+</div>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <!-- Line icons for the explainer decks (48×48, stroke = currentColor). Use: <svg class="icon c-people" width="48" height="48"><use href="/explainers/_deck/icons.svg#person"/></svg> -->
+  <defs>
+    <style>.i{fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}.d{fill:currentColor;stroke:none}</style>
+  </defs>
+  <symbol id="person" viewBox="0 0 48 48"><circle class="i" cx="24" cy="15" r="7"/><path class="i" d="M10 42c0-8.3 6.3-14 14-14s14 5.7 14 14"/></symbol>
+  <symbol id="robot" viewBox="0 0 48 48"><path class="i" d="M24 6v6"/><circle class="d" cx="24" cy="5" r="2.2"/><rect class="i" x="9" y="13" width="30" height="25" rx="6"/><circle class="d" cx="18" cy="24" r="2.6"/><circle class="d" cx="30" cy="24" r="2.6"/><path class="i" d="M19 31h10"/></symbol>
+  <symbol id="creator" viewBox="0 0 48 48"><circle class="i" cx="19" cy="15" r="7"/><path class="i" d="M5 42c0-8.3 6.3-14 14-14 3.3 0 6.3 1 8.6 2.8"/><path class="i" d="M30 42l2-6 10-10 4 4-10 10-6 2z"/></symbol>
+  <symbol id="item" viewBox="0 0 48 48"><path class="i" d="M19 5h10v6H19z"/><path class="i" d="M17 11h14v4c4 2 5 4 5 7v17a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4V22c0-3 1-5 5-7v-4z"/><path class="i" d="M12 25h24"/></symbol>
+  <symbol id="platform" viewBox="0 0 48 48"><rect class="i" x="7" y="4" width="34" height="40" rx="6"/><rect class="i" x="13" y="10" width="9" height="9" rx="2"/><rect class="i" x="26" y="10" width="9" height="9" rx="2"/><rect class="i" x="13" y="22" width="9" height="9" rx="2"/><rect class="i" x="26" y="22" width="9" height="9" rx="2"/><path class="i" d="M17 37h14"/></symbol>
+  <symbol id="doc" viewBox="0 0 48 48"><path class="i" d="M11 4h18l9 9v31H11z"/><path class="i" d="M29 4v9h9M17 22h14M17 29h14M17 36h9"/></symbol>
+  <symbol id="search" viewBox="0 0 48 48"><circle class="i" cx="21" cy="21" r="13"/><path class="i" d="M31 31l11 11"/></symbol>
+  <symbol id="spark" viewBox="0 0 48 48"><path class="i" d="M24 5c1.6 9 5 12.4 14 14-9 1.6-12.4 5-14 14-1.6-9-5-12.4-14-14 9-1.6 12.4-5 14-14z"/><path class="i" d="M38 32c.6 3.4 1.6 4.4 5 5-3.4.6-4.4 1.6-5 5-.6-3.4-1.6-4.4-5-5 3.4-.6 4.4-1.6 5-5z"/></symbol>
+  <symbol id="coin" viewBox="0 0 48 48"><circle class="i" cx="24" cy="24" r="18"/><path class="i" d="M30 17.5c-1.2-1.6-3.4-2.5-6-2.5-3.6 0-6 1.8-6 4.5 0 6.3 12.5 3 12.5 9.5 0 2.8-2.8 4.5-6.5 4.5-2.8 0-5.2-1-6.5-2.8M24 11v4M24 33v4"/></symbol>
+  <symbol id="model" viewBox="0 0 48 48"><rect class="i" x="5" y="7" width="38" height="34" rx="7"/><circle class="d" cx="15" cy="18" r="2.6"/><circle class="d" cx="15" cy="30" r="2.6"/><circle class="d" cx="24" cy="15" r="2.6"/><circle class="d" cx="24" cy="24" r="2.6"/><circle class="d" cx="24" cy="33" r="2.6"/><circle class="d" cx="33" cy="24" r="2.6"/><path class="i" d="M15 18l9-3M15 18l9 6M15 30l9-6M15 30l9 3M24 15l9 9M24 24h9M24 33l9-9" style="stroke-width:1.4"/></symbol>
+  <symbol id="shield" viewBox="0 0 48 48"><path class="i" d="M24 4l16 6v12c0 10-6.8 17.6-16 22C14.8 39.6 8 32 8 22V10z"/><path class="i" d="M17 23l5 5 9-10"/></symbol>
+  <symbol id="thief" viewBox="0 0 48 48"><circle class="i" cx="24" cy="15" r="7"/><path class="i" d="M10 42c0-8.3 6.3-14 14-14s14 5.7 14 14"/><path class="i" d="M15 13h18" style="stroke-width:4"/></symbol>
+  <symbol id="trophy" viewBox="0 0 48 48"><path class="i" d="M15 6h18v10a9 9 0 0 1-18 0z"/><path class="i" d="M15 9H8v3a7 7 0 0 0 7 7M33 9h7v3a7 7 0 0 1-7 7M24 25v8M16 42h16M19 33h10v9H19z"/></symbol>
+  <symbol id="dice" viewBox="0 0 48 48"><rect class="i" x="7" y="7" width="34" height="34" rx="7"/><circle class="d" cx="17" cy="17" r="2.8"/><circle class="d" cx="31" cy="17" r="2.8"/><circle class="d" cx="24" cy="24" r="2.8"/><circle class="d" cx="17" cy="31" r="2.8"/><circle class="d" cx="31" cy="31" r="2.8"/></symbol>
+  <symbol id="loop" viewBox="0 0 48 48"><path class="i" d="M36 15a15 15 0 0 0-26 5M12 33a15 15 0 0 0 26-5"/><path class="i" d="M37 7v8h-8M11 41v-8h8"/></symbol>
+  <symbol id="target" viewBox="0 0 48 48"><circle class="i" cx="24" cy="24" r="18"/><circle class="i" cx="24" cy="24" r="10"/><circle class="d" cx="24" cy="24" r="3"/></symbol>
+  <symbol id="chat" viewBox="0 0 48 48"><path class="i" d="M8 9h32a3 3 0 0 1 3 3v19a3 3 0 0 1-3 3H21l-9 8v-8H8a3 3 0 0 1-3-3V12a3 3 0 0 1 3-3z"/><path class="i" d="M14 19h20M14 25h12"/></symbol>
+  <symbol id="poison" viewBox="0 0 48 48"><path class="i" d="M19 4h10M21 4v10L10 37a5 5 0 0 0 4.5 7h19a5 5 0 0 0 4.5-7L27 14V4"/><circle class="d" cx="20" cy="33" r="2.4"/><circle class="d" cx="28" cy="35" r="2.4"/><path class="i" d="M17 26h14"/></symbol>
+</svg>

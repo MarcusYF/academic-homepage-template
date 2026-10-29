@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "checked_at": "2026-01-01",
+  "about": "One link per coauthor name, as it appears in publication front matter. kind: homepage | scholar | scholar-search (a labelled Google Scholar search when no personal page is known). Placeholder entries; replace with your coauthors.",
+  "authors": {
+    "Sam Rivera": {
+      "url": "https://example.org/sam-rivera",
+      "kind": "homepage",
+      "verified": true,
+      "sources": ["https://example.org/sam-rivera"]
+    },
+    "Morgan Ellis": {
+      "url": "https://example.org/morgan-ellis",
+      "kind": "homepage",
+      "verified": true,
+      "sources": ["https://example.org/morgan-ellis"]
+    },
+    "Wei Chen": {
+      "url": "https://scholar.google.com/scholar?q=%22Wei+Chen%22+example",
+      "kind": "scholar-search",
+      "verified": false,
+      "sources": []
+    }
+  }
+}

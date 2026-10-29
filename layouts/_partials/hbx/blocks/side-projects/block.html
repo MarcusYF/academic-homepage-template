@@ -1,0 +1,57 @@
+{{- /* Side projects page: one wide card per project (story left, facts and links right).
+       Data: content/side-projects/_index.md → content.projects
+       [{id, name, icon, status, tagline, summary, features[], facts[{label, value}], preview{src, alt, url}, links[{label, url, icon, primary}], note}]. */ -}}
+{{- $page := .wcPage -}}
+{{- $c := .wcBlock.content -}}
+<div class="mb sp s-container">
+  <header class="mb-head">
+    <p class="s-kicker">{{ partial "fy-icon.html" "spark" }}{{ $c.kicker | default "Side projects" }}</p>
+    <h1 class="mb-title">{{ $c.title | default $page.Title }}</h1>
+    {{- with $c.intro }}<p class="mb-intro">{{ . | $page.RenderString }}</p>{{ end }}
+  </header>
+
+  <div class="sp-list">
+    {{- range $c.projects }}
+    <article class="sp-card s-card" id="{{ .id }}">
+      <div class="sp-main">
+        <header class="sp-head">
+          <span class="sp-glyph">{{ partial "fy-icon.html" .icon }}</span>
+          <div>
+            <h2 class="sp-name">{{ .name }}</h2>
+            {{- with .status }}<span class="s-pill sp-status">{{ . }}</span>{{ end }}
+          </div>
+        </header>
+        <p class="sp-tagline">{{ .tagline | $page.RenderString }}</p>
+        {{- with .summary }}<p class="sp-summary">{{ . | $page.RenderString }}</p>{{ end }}
+        <ul class="sp-features">
+          {{- range .features }}
+          <li><span class="sp-check">{{ partial "fy-icon.html" "check" }}</span><span>{{ . | $page.RenderString }}</span></li>
+          {{- end }}
+        </ul>
+      </div>
+      <aside class="sp-side">
+        {{- with .preview }}
+        <a class="sp-preview" href="{{ .url | relURL }}">
+          <span class="sp-preview-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+          <img src="{{ .src | relURL }}" alt="{{ .alt }}" width="1200" height="750" loading="lazy" decoding="async">
+        </a>
+        {{- end }}
+        <dl class="sp-facts">
+          {{- range .facts }}
+          <div><dt>{{ .label }}</dt><dd>{{ .value | $page.RenderString }}</dd></div>
+          {{- end }}
+        </dl>
+        <div class="sp-links">
+          {{- range .links }}
+          {{- $ext := hasPrefix .url "http" }}
+          <a class="sp-btn{{ if .primary }} sp-btn--primary{{ end }}" href="{{ .url | relURL }}"{{ if $ext }} rel="noopener"{{ end }}>
+            <span class="s-icon">{{ partial "fy-icon.html" (.icon | default "arrow") }}</span>{{ .label }}
+          </a>
+          {{- end }}
+        </div>
+        {{- with .note }}<p class="sp-note">{{ . | $page.RenderString }}</p>{{ end }}
+      </aside>
+    </article>
+    {{- end }}
+  </div>
+</div>

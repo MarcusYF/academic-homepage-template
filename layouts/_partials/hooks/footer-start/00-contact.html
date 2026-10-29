@@ -1,0 +1,11 @@
+{{- /* Contact line on every page, above the theme footer. Set `contact.office` and `contact.email` in
+       data/authors/me.yaml; the line is hidden when both are empty. */ -}}
+{{- $me := index site.Data.authors "me" | default dict -}}
+{{- $c := $me.contact | default dict -}}
+{{- if or $c.office $c.email }}
+<p class="fy-footer-contact">
+  <span>{{ $me.name.display }}</span>
+  {{- with $c.office }}<span aria-hidden="true">·</span><span>{{ . }}</span>{{ end }}
+  {{- with $c.email }}<span aria-hidden="true">·</span><a href="mailto:{{ . }}">{{ . }}</a>{{ end }}
+</p>
+{{- end }}
