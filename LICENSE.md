@@ -1,8 +1,7 @@
 MIT License
 
-Copyright (c) 2026 Fan Yao (academic homepage template: custom blocks, layouts, styles, scripts and the
-visual-intro deck engine)
-Copyright (c) 2023-present George Cushen (https://georgecushen.com/) (HugoBlox Kit, on which this template is built)
+Copyright (c) 2026 Fan Yao
+Copyright (c) 2023-present George Cushen (https://georgecushen.com/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +20,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-The Computer Modern web fonts in static/explainers/_deck/fonts/ are licensed separately under the
-SIL Open Font License (see OFL.txt in that folder).

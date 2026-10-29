@@ -255,5 +255,6 @@ static/explainers/      visual intros; the shared engine is in _deck/
 
 - Theme: [HugoBlox Kit](https://github.com/HugoBlox/kit) by George Cushen and contributors, MIT licence.
 - Deck font: Computer Modern (CMU) web fonts, SIL Open Font Licence (`static/explainers/_deck/fonts/`).
-- Template code: MIT licence, see [LICENSE.md](LICENSE.md). The placeholder text and images may be reused
+- Template code (custom blocks, layouts, styles, scripts and the deck engine): MIT licence, see
+  [LICENSE.md](LICENSE.md). The placeholder text and images may be reused
   freely.
